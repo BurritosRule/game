@@ -1,6 +1,6 @@
 package com.github.game.items;
 
-public class Sword implements BaseItem {
+public class Sword implements Item {
 
 	@Override
 	public Boolean isUsable() {

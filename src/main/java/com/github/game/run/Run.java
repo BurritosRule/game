@@ -1,18 +1,33 @@
 package com.github.game.run;
 
 import java.io.IOException;
+import java.util.Scanner;
 
-import com.github.game.items.Sword;
+import com.github.game.world.CastleTower;
 
 public class Run {
 
 	public static void main(String[] args) throws IOException {
 
-		Sword sword = new Sword();
+		Scanner input = new Scanner(System.in);
 
-		System.out.println(sword.isUsable());
-		System.out.println(sword.isEquipable());
-		System.out.println(sword.rarity());
+		CastleTower spookyTower = new CastleTower("Spooky Tower", 10);
 
+		String menuSelection;
+
+		do {
+			System.out.println("Your current location is floor " + spookyTower.getCurrentFloor() + " of "
+					+ spookyTower.getTowerName());
+
+			System.out.print("Ascend or descend? ");
+
+			menuSelection = input.next();
+			switch (menuSelection) {
+			case "ascend" -> spookyTower.ascendTower();
+			case "descend" -> spookyTower.desendTower();
+			}
+		} while (!menuSelection.equals("exit"));
+		
+		input.close();
 	}
 }

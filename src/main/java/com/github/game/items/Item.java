@@ -1,9 +1,7 @@
 package com.github.game.items;
 
-public interface BaseItem {
+public interface Item {
 
-	// Do I have these individual methods or just throw all item attributes into a
-	// hashmap?
 	public Boolean isUsable();
 
 	public Boolean isEquipable();
