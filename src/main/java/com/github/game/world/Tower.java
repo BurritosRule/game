@@ -2,14 +2,18 @@ package com.github.game.world;
 
 public interface Tower {
 
-	public String getTowerName();
+	public String getName();
 
 	public int getNumOfFloors();
 
 	public int getCurrentFloor();
 
-	public void ascendTower();
+	public void ascend();
+	
+	public boolean canAscend();
 
-	public void desendTower();
+	public void descend();
+	
+	public boolean canDescend();
 
 }
