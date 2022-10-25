@@ -1,18 +1,17 @@
 package com.github.game.menu;
 
+import com.github.game.world.TowerImpl;
+
 public class MenuFactory {
-	public Menu getMenu(Context location) {
-		if (location == null) {
+	public Menu getMenu(TowerImpl tower) {
+		if (tower == null) {
 			return null;
 		}
-		switch (location) {
-		case TOWER:
-			return new Tower();
 
-		default:
-			break;
-
+		if (tower instanceof TowerImpl) {
+			return new TowerMenu();
 		}
+
 		return null;
 
 	}
