@@ -25,7 +25,9 @@ public class Run {
 			
 			MenuFactory menuFactory = new MenuFactory();
 			
-			Menu menu = menuFactory.getMenu(player.getCurrentLocation());
+			Menu menu = menuFactory.getMenu(spookyTower);
+			
+			//Menu menu = menuFactory.getMenu(player.getCurrentLocation());
 
 			while (true) {
 				// while true keep calling menu.possibleInput

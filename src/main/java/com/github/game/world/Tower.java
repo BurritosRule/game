@@ -1,6 +1,6 @@
 package com.github.game.world;
 
-public interface Tower {
+public interface Tower extends Location {
 
 	public String getName();
 

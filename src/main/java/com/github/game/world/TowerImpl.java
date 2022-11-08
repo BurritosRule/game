@@ -1,5 +1,11 @@
 package com.github.game.world;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.github.burritodetector.menuparser.MenuItem;
+
 public class TowerImpl implements Tower {
 
 	private String name;
@@ -53,6 +59,17 @@ public class TowerImpl implements Tower {
 	@Override
 	public int getCurrentFloor() {
 		return currentFloor;
+	}
+
+	@Override
+	public List<Action> getActions() {
+		
+		List<Action> actions = new ArrayList<Action>();
+		
+		if (this.canAscend()) {
+			actions.add(action)
+		}
+
 	}
 
 }
