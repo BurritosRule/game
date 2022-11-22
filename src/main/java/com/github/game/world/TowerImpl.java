@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.burritodetector.menuparser.MenuItem;
-
 public class TowerImpl implements Tower {
 
 	private String name;
@@ -63,12 +61,42 @@ public class TowerImpl implements Tower {
 
 	@Override
 	public List<Action> getActions() {
-		
+
 		List<Action> actions = new ArrayList<Action>();
-		
+
 		if (this.canAscend()) {
-			actions.add(action)
+			actions.add(new Action() {
+				// TODO Refactor UI concern out of this class
+				@Override
+				public String getKeyword() {
+					return "Ascend";
+				}
+
+				@Override
+				public void execute() {
+					TowerImpl.this.ascend();
+
+				}
+			});
 		}
+
+		if (this.canDescend()) {
+			actions.add(new Action() {
+				// TODO Refactor UI concern out of this class
+				@Override
+				public String getKeyword() {
+					return "Descend";
+				}
+
+				@Override
+				public void execute() {
+					TowerImpl.this.descend();
+
+				}
+			});
+		}
+
+		return actions;
 
 	}
 

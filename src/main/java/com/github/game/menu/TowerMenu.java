@@ -1,13 +1,21 @@
 package com.github.game.menu;
 
-import java.util.ArrayList;
+import java.util.List;
+
+import com.github.game.world.Action;
+import com.github.game.world.Tower;
 
 public class TowerMenu implements Menu {
 
+	private final Tower tower;
+
+	public TowerMenu(Tower tower) {
+		this.tower = tower;
+	}
+
 	@Override
-	public ArrayList<String> possibleInput() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Action> possibleInput() {
+		return tower.getActions();
 	}
 
 }

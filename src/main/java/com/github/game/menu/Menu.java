@@ -1,9 +1,10 @@
 package com.github.game.menu;
 
-import java.util.ArrayList;
+import java.util.List;
+
+import com.github.game.world.Action;
 
 public interface Menu {
-	//Probably don't want strings for this...
-	public ArrayList<String> possibleInput();
+	public List<Action> possibleInput();
 
 }
