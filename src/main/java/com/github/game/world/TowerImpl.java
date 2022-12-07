@@ -69,7 +69,7 @@ public class TowerImpl implements Tower {
 				// TODO Refactor UI concern out of this class
 				@Override
 				public String getKeyword() {
-					return "Ascend";
+					return "ascend";
 				}
 
 				@Override
@@ -85,7 +85,7 @@ public class TowerImpl implements Tower {
 				// TODO Refactor UI concern out of this class
 				@Override
 				public String getKeyword() {
-					return "Descend";
+					return "descend";
 				}
 
 				@Override

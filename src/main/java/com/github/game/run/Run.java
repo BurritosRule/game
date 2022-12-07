@@ -1,7 +1,9 @@
 package com.github.game.run;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import com.github.game.menu.Menu;
@@ -20,32 +22,37 @@ public class Run {
 			String menuSelection = null;
 			List<Action> possibleInput = null;
 
-			TowerImpl spookyTower = new TowerImpl("Spooky Tower", 10);
-
 			MenuFactory menuFactory = new MenuFactory();
-
+			
+			// TODO Get this out of here. Locations should be generated dynamically based on player location.
+			TowerImpl spookyTower = new TowerImpl("Spooky Tower", 10);
 			Menu menu = menuFactory.getMenu(spookyTower);
 
 			while (true) {
-				
+
 				possibleInput = menu.possibleInput();
 				StringBuilder keywords = new StringBuilder();
-				
-				for (int i = 0; i < possibleInput.size(); i++) {
-					keywords.append(possibleInput.get(i).getKeyword()).append("\n");
+
+				Map<String, Action> actions = new HashMap<>();
+				for (Action action : possibleInput) {
+					keywords.append(action.getKeyword()).append("\n");
+					actions.put(action.getKeyword(), action);
 				}
-				
+
 				System.out.println("Your current location is floor " + spookyTower.getCurrentFloor() + " of "
 						+ spookyTower.getName());
 
 				System.out.print("\nOptions: \n" + keywords);
 
-				menuSelection = input.next();
-				switch (menuSelection) {
-				case "ascend" -> spookyTower.ascend();
-				case "descend" -> spookyTower.descend();
-				case "exit" -> System.exit(0);
-				}
+				menuSelection = input.next().toLowerCase();
+
+				// This doesn't work the way I want it to...
+//				if (menuSelection == "exit") {
+//					System.exit(0);
+//				}
+
+				actions.get(menuSelection).execute();
+
 			}
 
 		}
