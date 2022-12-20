@@ -23,8 +23,9 @@ public class Run {
 			List<Action> possibleInput = null;
 
 			MenuFactory menuFactory = new MenuFactory();
-			
-			// TODO Get this out of here. Locations should be generated dynamically based on player location.
+
+			// TODO Get this out of here. Locations should be generated dynamically based on
+			// player location.
 			TowerImpl spookyTower = new TowerImpl("Spooky Tower", 10);
 			Menu menu = menuFactory.getMenu(spookyTower);
 
@@ -45,11 +46,6 @@ public class Run {
 				System.out.print("\nOptions: \n" + keywords);
 
 				menuSelection = input.next().toLowerCase();
-
-				// This doesn't work the way I want it to...
-//				if (menuSelection == "exit") {
-//					System.exit(0);
-//				}
 
 				actions.get(menuSelection).execute();
 
