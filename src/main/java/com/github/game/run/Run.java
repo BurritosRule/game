@@ -32,6 +32,7 @@ public class Run {
 			while (true) {
 
 				possibleInput = menu.possibleInput();
+				//header = menu.header();
 				StringBuilder keywords = new StringBuilder();
 
 				Map<String, Action> actions = new HashMap<>();
@@ -43,7 +44,10 @@ public class Run {
 				System.out.println("Your current location is floor " + spookyTower.getCurrentFloor() + " of "
 						+ spookyTower.getName());
 
-				System.out.print("\nOptions: \n" + keywords);
+				System.out.print(menu.header());
+				
+				
+				//System.out.print("\nOptions: \n" + keywords);
 
 				menuSelection = input.next().toLowerCase();
 

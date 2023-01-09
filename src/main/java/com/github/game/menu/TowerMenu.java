@@ -11,10 +11,12 @@ public class TowerMenu implements Menu {
 
 	private final Tower tower;
 	private final Collection<Action> additionalActions;
+	private final String header;
 
 	public TowerMenu(Tower tower, Collection<Action> additionalActions) {
 		this.tower = tower;
 		this.additionalActions = new ArrayList<>(additionalActions);
+		this.header = "actions";
 	}
 
 	@Override
@@ -23,6 +25,12 @@ public class TowerMenu implements Menu {
 		possibleInput.addAll(additionalActions);
 
 		return possibleInput;
+	}
+
+	@Override
+	public String header() {
+
+		return header;
 	}
 
 }

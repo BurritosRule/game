@@ -3,7 +3,7 @@ package com.github.game.world;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameActions {
+public class OptionActions {
 
 	public List<Action> getActions() {
 
