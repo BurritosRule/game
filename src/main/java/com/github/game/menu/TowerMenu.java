@@ -16,7 +16,7 @@ public class TowerMenu implements Menu {
 	public TowerMenu(Tower tower, Collection<Action> additionalActions) {
 		this.tower = tower;
 		this.additionalActions = new ArrayList<>(additionalActions);
-		this.header = "actions";
+		this.header = "Tower Menu\n----------------------";
 	}
 
 	@Override
@@ -29,7 +29,6 @@ public class TowerMenu implements Menu {
 
 	@Override
 	public String header() {
-
 		return header;
 	}
 

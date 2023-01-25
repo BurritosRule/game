@@ -16,6 +16,9 @@ import com.github.game.world.TowerImpl;
 public class Run {
 
 	public static void main(String[] args) throws IOException {
+		
+		TowerImpl castleTower = new TowerImpl("Castle Tower", 10);
+		Player player = new PlayerImpl("Hero", castleTower);
 
 		try (Scanner input = new Scanner(System.in)) {
 
@@ -23,11 +26,8 @@ public class Run {
 			List<Action> possibleInput = null;
 
 			MenuFactory menuFactory = new MenuFactory();
-
-			// TODO Get this out of here. Locations should be generated dynamically based on
-			// player location.
-			TowerImpl spookyTower = new TowerImpl("Spooky Tower", 10);
-			Menu menu = menuFactory.getMenu(spookyTower);
+			
+			Menu menu = menuFactory.getMenu(player.getCurrentLocation());
 
 			while (true) {
 
@@ -41,13 +41,12 @@ public class Run {
 					actions.put(action.getKeyword(), action);
 				}
 
-				System.out.println("Your current location is floor " + spookyTower.getCurrentFloor() + " of "
-						+ spookyTower.getName());
+				System.out.println("Your current location is floor " + castleTower.getCurrentFloor() + " of "
+						+ castleTower.getName() + "\n");
 
 				System.out.print(menu.header());
 				
-				
-				//System.out.print("\nOptions: \n" + keywords);
+				System.out.print("\n" + keywords);
 
 				menuSelection = input.next().toLowerCase();
 

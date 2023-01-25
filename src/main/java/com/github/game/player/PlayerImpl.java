@@ -1,27 +1,27 @@
 package com.github.game.player;
 
-import com.github.game.world.TowerImpl;
+import com.github.game.world.Location;
 
 public class PlayerImpl implements Player {
 
 	private String name;
-	private TowerImpl tower;
+	private Location location;
 
-	public PlayerImpl(String name, TowerImpl tower) {
+	public PlayerImpl(String name, Location location) {
 		this.setName(name);
-		this.tower = tower;
+		this.location = location;
 
 	}
 
 	@Override
-	public void setCurrentLocation(TowerImpl tower) {
-		this.tower = tower;
+	public void setCurrentLocation(Location location) {
+		this.location = location;
 
 	}
 
 	@Override
-	public TowerImpl getCurrentLocation() {
-		return tower;
+	public Location getCurrentLocation() {
+		return location;
 
 	}
 
