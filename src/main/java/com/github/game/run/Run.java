@@ -59,10 +59,10 @@ public class Run {
 					actions.put(action.getKeyword(), action);
 				}
 
-				reader.getTerminal().writer().println(menu.header());
-				reader.getTerminal().writer().println("Your current location is floor " + castleTower.getCurrentFloor() + " of "
+				terminal.writer().println(menu.header());
+				terminal.writer().println("Your current location is floor " + castleTower.getCurrentFloor() + " of "
 						+ castleTower.getName() + "\n");
-				reader.getTerminal().writer().println("\n" + keywords);
+				terminal.writer().println("\n" + keywords);
 
 				menuSelection = reader.readLine("Action > ");
 				actions.get(menuSelection).execute();
