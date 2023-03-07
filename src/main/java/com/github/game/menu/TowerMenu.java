@@ -16,7 +16,7 @@ public class TowerMenu implements Menu {
 	public TowerMenu(Tower tower, Collection<Action> additionalActions) {
 		this.tower = tower;
 		this.additionalActions = new ArrayList<>(additionalActions);
-		this.header = "Tower Menu\n----------------------";
+		this.header = tower.getName() + " Menu\n----------------------";
 	}
 
 	@Override

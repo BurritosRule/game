@@ -18,6 +18,7 @@ import org.jline.utils.Log;
 
 import com.github.game.menu.Menu;
 import com.github.game.menu.MenuFactory;
+import com.github.game.menu.LocationMenuFactory;
 import com.github.game.player.Player;
 import com.github.game.player.PlayerImpl;
 import com.github.game.world.Action;
@@ -26,31 +27,48 @@ import com.github.game.world.TowerImpl;
 public class Run {
 
 	public static void main(String[] args) throws IOException {
-		
+
 		TowerImpl castleTower = new TowerImpl("Castle Tower", 10);
 		Player player = new PlayerImpl("Hero", castleTower);
-		
-		
 
-        Terminal terminal = TerminalBuilder.builder().build();
+		Terminal terminal = TerminalBuilder.builder().build();
 
-        DefaultParser parser = new DefaultParser();
-        LineReader reader = LineReaderBuilder.builder()
-                .terminal(terminal)
-                .parser(parser)
-                .build();
-        while (true) {
-            try {
-                
-    			String menuSelection = null;
-    			List<Action> possibleInput = null;
-    
-    			MenuFactory menuFactory = new MenuFactory();
-    			
-    			Menu menu = menuFactory.getMenu(player.getCurrentLocation());
-    			
-    			possibleInput = menu.possibleInput();
-				//header = menu.header();
+		DefaultParser parser = new DefaultParser();
+		LineReader reader = LineReaderBuilder.builder().terminal(terminal).parser(parser).build();
+		while (true) {
+			try {
+
+				String menuSelection = null;
+				List<Action> possibleInput = null;
+
+				MenuFactory menuFactory = new MenuFactory();
+				LocationMenuFactory locationMenuFactory = new LocationMenuFactory();
+
+				//Can I return location name from getCurrentLocation
+				terminal.writer().println(castleTower.getName() + "\nPlayer\nOptions\n");
+				
+				menuSelection = reader.readLine("Action > ");
+				
+				Menu menu = null;
+				
+				switch (menuSelection) {
+				case "player":
+					menu = menuFactory.getMenu(menuSelection);
+					break;
+				case "options":
+					menu = menuFactory.getMenu(menuSelection);
+					break;
+				case "castle tower":
+					menu = locationMenuFactory.getMenu(player.getCurrentLocation());
+				    break;
+				default:
+					throw new IllegalArgumentException("Unrecognized menu type: " + menuSelection);
+				}
+				
+				terminal.writer().println(menu.header());
+				
+				possibleInput = menu.possibleInput();
+				
 				StringBuilder keywords = new StringBuilder();
 
 				Map<String, Action> actions = new HashMap<>();
@@ -65,62 +83,18 @@ public class Run {
 				terminal.writer().println("\n" + keywords);
 
 				menuSelection = reader.readLine("Action > ");
-				actions.get(menuSelection).execute();
-                
-                //reader.callWidget(LineReader.CLEAR);
-                //reader.getTerminal().writer().println(line);
-                //reader.callWidget(LineReader.REDRAW_LINE);
-                //reader.callWidget(LineReader.REDISPLAY);
-                //reader.getTerminal().writer().flush();
-                
-                //System.out.println(line);
-            } catch (UserInterruptException e) {
-                // Ignore
-            } catch (EndOfFileException e) {
-                return;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-	    
-		
+				
 
-		
 
-//		try (Scanner input = new Scanner(System.in)) {
-//
-//			String menuSelection = null;
-//			List<Action> possibleInput = null;
-//
-//			MenuFactory menuFactory = new MenuFactory();
-//			
-//			Menu menu = menuFactory.getMenu(player.getCurrentLocation());
-//
-//			while (true) {
-//
-//				possibleInput = menu.possibleInput();
-//				//header = menu.header();
-//				StringBuilder keywords = new StringBuilder();
-//
-//				Map<String, Action> actions = new HashMap<>();
-//				for (Action action : possibleInput) {
-//					keywords.append(action.getKeyword()).append("\n");
-//					actions.put(action.getKeyword(), action);
-//				}
-//
-//				System.out.println("Your current location is floor " + castleTower.getCurrentFloor() + " of "
-//						+ castleTower.getName() + "\n");
-//
-//				System.out.print(menu.header());
-//				
-//				System.out.print("\n" + keywords);
-//
-//				menuSelection = input.next().toLowerCase();
-//
-//				actions.get(menuSelection).execute();
-//
-//			}
-//
-//		}
+
+			} catch (UserInterruptException e) {
+				// Ignore
+			} catch (EndOfFileException e) {
+				return;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 }
