@@ -3,7 +3,6 @@ package com.github.game.menu;
 import java.util.List;
 
 import com.github.game.world.Action;
-import com.github.game.world.OptionActions;
 
 public class OptionsMenu implements Menu {
 

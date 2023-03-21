@@ -1,10 +1,11 @@
-package com.github.game.world;
+package com.github.game.menu;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OptionActions {
+import com.github.game.world.Action;
 
+public class PlayerActions {
 	public List<Action> getActions() {
 
 		List<Action> actions = new ArrayList<Action>();
@@ -13,7 +14,7 @@ public class OptionActions {
 
 			@Override
 			public String getKeyword() {
-				return "quit";
+				return "player";
 			}
 
 			@Override
@@ -25,5 +26,4 @@ public class OptionActions {
 		return actions;
 
 	}
-
 }

@@ -1,19 +1,20 @@
 package com.github.game.menu;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.github.game.world.Action;
-import com.github.game.world.OptionActions;
-import com.github.game.world.PlayerActions;
 
 public class PlayerMenu implements Menu {
 
 	public String header;
 	private final PlayerActions playerActions;
 
-	public PlayerMenu(PlayerActions playerActions) {
+	public PlayerMenu(List<Action> playerActions) {
+
 		this.header = "Player Menu\n----------------------";
-		this.playerActions = playerActions;
+		this.playerActions = (PlayerActions) playerActions;
 	}
 
 	@Override

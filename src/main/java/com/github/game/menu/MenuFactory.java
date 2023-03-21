@@ -1,6 +1,5 @@
 package com.github.game.menu;
 
-import com.github.game.world.OptionActions;
 import com.github.game.world.Location;
 import com.github.game.world.Tower;
 
@@ -13,5 +12,9 @@ public class MenuFactory {
 
 		throw new IllegalArgumentException("Unrecognized location type: " + location);
 
+	}
+
+	public Menu getPlayerMenu() {
+		return new PlayerMenu(new PlayerActions().getActions());
 	}
 }
