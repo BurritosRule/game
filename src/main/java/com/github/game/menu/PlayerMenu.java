@@ -11,10 +11,10 @@ public class PlayerMenu implements Menu {
 	public String header;
 	private final PlayerActions playerActions;
 
-	public PlayerMenu(List<Action> playerActions) {
+	public PlayerMenu(PlayerActions playerActions) {
 
 		this.header = "Player Menu\n----------------------";
-		this.playerActions = (PlayerActions) playerActions;
+		this.playerActions = playerActions;
 	}
 
 	@Override

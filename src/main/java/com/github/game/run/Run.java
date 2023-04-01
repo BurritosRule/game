@@ -19,6 +19,7 @@ import org.jline.utils.Log;
 import com.github.game.menu.Menu;
 import com.github.game.menu.MenuController;
 import com.github.game.menu.MenuFactory;
+import com.github.game.menu.MenuRenderer;
 import com.github.game.player.Player;
 import com.github.game.player.PlayerImpl;
 import com.github.game.world.Action;
@@ -35,15 +36,30 @@ public class Run {
 
 		DefaultParser parser = new DefaultParser();
 		LineReader reader = LineReaderBuilder.builder().terminal(terminal).parser(parser).build();
+		
+		String menuSelection = null;
+		Menu currentMenu = null;
 
 		MenuFactory menuFactory = new MenuFactory();
 		Menu menu = menuFactory.getMenu(castleTower);
-		Menu playerMenu = menuFactory.getPlayerMenu();
+		Menu playerMenu = menuFactory.createPlayerMenu();
 
 		MenuController menuController = new MenuController();
-		menuController.addMenu(menu);
+		MenuRenderer menuRenderer = new MenuRenderer();
+		
 		menuController.addMenu(playerMenu);
-		System.out.println(menuController.popMenu());
+		menuController.addMenu(menu);
+		
+		currentMenu = menuController.peekLastMenu();
+		
+		//System.out.println(menuRenderer.renderCurrentMenu(menuController));
+		terminal.writer().println(currentMenu.header());
+		terminal.writer().println("Your current location is floor " + castleTower.getCurrentFloor() + " of "
+				+ castleTower.getName() + "\n");
+		terminal.writer().println("\n" + menuRenderer.renderMenu(currentMenu).keySet());
+
+		menuSelection = reader.readLine("Action > ");
+		menuRenderer.renderMenu(currentMenu).get(menuSelection).execute();
 
 //        while (true) {
 //            try {

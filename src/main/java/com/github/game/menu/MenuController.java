@@ -17,5 +17,9 @@ public class MenuController {
 	public Menu peekMenu() {
 		return menuDeque.peek();
 	}
+	
+	public Menu peekLastMenu() {
+		return menuDeque.peekLast();
+	}
 
 }

@@ -14,7 +14,8 @@ public class MenuFactory {
 
 	}
 
-	public Menu getPlayerMenu() {
-		return new PlayerMenu(new PlayerActions().getActions());
+	public Menu createPlayerMenu() {
+		return new PlayerMenu(new PlayerActions());
+
 	}
 }
