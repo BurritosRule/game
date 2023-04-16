@@ -32,10 +32,10 @@ public class Run {
 		TowerImpl castleTower = new TowerImpl("Castle Tower", 10);
 		Player player = new PlayerImpl("Hero", castleTower);
 
-		Terminal terminal = TerminalBuilder.builder().build();
-
-		DefaultParser parser = new DefaultParser();
-		LineReader reader = LineReaderBuilder.builder().terminal(terminal).parser(parser).build();
+//		Terminal terminal = TerminalBuilder.builder().build();
+//
+//		DefaultParser parser = new DefaultParser();
+//		LineReader reader = LineReaderBuilder.builder().terminal(terminal).parser(parser).build();
 		
 		String menuSelection = null;
 		Menu currentMenu = null;
@@ -52,14 +52,19 @@ public class Run {
 		
 		currentMenu = menuController.peekLastMenu();
 		
+		castleTower.getActions().execute();
+		
+		action = menuRenderer.renderLocationMenu(currentMenu, castleTower);
+		actions.execute(menuRenderer.renderLocationMenu(currentMenu, castleTower));
+		
 		//System.out.println(menuRenderer.renderCurrentMenu(menuController));
-		terminal.writer().println(currentMenu.header());
-		terminal.writer().println("Your current location is floor " + castleTower.getCurrentFloor() + " of "
-				+ castleTower.getName() + "\n");
-		terminal.writer().println("\n" + menuRenderer.renderMenu(currentMenu).keySet());
-
-		menuSelection = reader.readLine("Action > ");
-		menuRenderer.renderMenu(currentMenu).get(menuSelection).execute();
+//		terminal.writer().println(currentMenu.header());
+//		terminal.writer().println("Your current location is floor " + castleTower.getCurrentFloor() + " of "
+//				+ castleTower.getName() + "\n");
+//		terminal.writer().println("\n" + menuRenderer.renderMenu(currentMenu).keySet());
+//
+//		menuSelection = reader.readLine("Action > ");
+//		menuRenderer.renderMenu(currentMenu).get(menuSelection).execute();
 
 //        while (true) {
 //            try {
