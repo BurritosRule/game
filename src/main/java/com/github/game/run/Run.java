@@ -21,6 +21,7 @@ import com.github.game.menu.MenuController;
 import com.github.game.menu.MenuFactory;
 import com.github.game.player.Player;
 import com.github.game.player.PlayerImpl;
+import com.github.game.ui.ActionExecuter;
 import com.github.game.ui.LocationRenderer;
 import com.github.game.ui.MenuRenderer;
 import com.github.game.ui.UiBuilder;
@@ -53,11 +54,16 @@ public class Run {
 
 		MenuRenderer menuRenderer = new MenuRenderer(currentMenu, terminal, reader);
 		LocationRenderer locationRenderer = new LocationRenderer(terminal);
+		ActionExecuter actionExecuter = new ActionExecuter(currentMenu);
 
 		while (true) {
 			try {
 				locationRenderer.render(castleTower);
 				menuRenderer.render();
+				menuSelection = reader.readLine("Action > ");
+				actionExecuter.executeAction(menuSelection);
+				menuRenderer.setMenu(currentMenu);
+				actionExecuter.setMenu(currentMenu);
 				;
 			} catch (UserInterruptException e) {
 
@@ -67,53 +73,6 @@ public class Run {
 				e.printStackTrace();
 			}
 		}
-
-		// System.out.println(menuRenderer.renderCurrentMenu(menuController));
-//		terminal.writer().println(currentMenu.header());
-//		terminal.writer().println("Your current location is floor " + castleTower.getCurrentFloor() + " of "
-//				+ castleTower.getName() + "\n");
-//		terminal.writer().println("\n" + menuRenderer.renderMenu(currentMenu).keySet());
-//
-//		menuSelection = reader.readLine("Action > ");
-//		menuRenderer.renderMenu(currentMenu).get(menuSelection).execute();
-
-//        while (true) {
-//            try {
-//                
-//    			String menuSelection = null;
-//    			List<Action> possibleInput = null;
-//    
-//    			MenuFactory menuFactory = new MenuFactory();
-//    			
-//    			Menu menu = menuFactory.getMenu(player.getCurrentLocation());
-//    			
-//    			possibleInput = menu.possibleInput();
-//
-//				StringBuilder keywords = new StringBuilder();
-//
-//				Map<String, Action> actions = new HashMap<>();
-//				for (Action action : possibleInput) {
-//					keywords.append(action.getKeyword()).append("\n");
-//					actions.put(action.getKeyword(), action);
-//				}
-//
-//				terminal.writer().println(menu.header());
-//				terminal.writer().println("Your current location is floor " + castleTower.getCurrentFloor() + " of "
-//						+ castleTower.getName() + "\n");
-//				terminal.writer().println("\n" + keywords);
-//
-//				menuSelection = reader.readLine("Action > ");
-//				actions.get(menuSelection).execute();
-//                
-//
-//            } catch (UserInterruptException e) {
-//                // Ignore
-//            } catch (EndOfFileException e) {
-//                return;
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
 
 	}
 }

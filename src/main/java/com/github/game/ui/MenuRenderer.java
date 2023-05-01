@@ -17,7 +17,7 @@ import com.github.game.world.Location;
 import com.github.game.world.Tower;
 
 public class MenuRenderer {
-	private final Menu menu;
+	private Menu menu;
 	private final Terminal terminal;
 	private final LineReader reader;
 
@@ -28,9 +28,8 @@ public class MenuRenderer {
 
 	}
 
-	public Action render() {
+	public void render() {
 
-		String menuSelection = null;
 		List<Action> possibleInput = null;
 
 		possibleInput = menu.possibleInput();
@@ -46,10 +45,10 @@ public class MenuRenderer {
 		terminal.writer().println(menu.header());
 		terminal.writer().println("\n" + keywords);
 
-		menuSelection = reader.readLine("Action > ");
+	}
 
-		return actions.get(menuSelection);
-
+	public void setMenu(Menu menu) {
+		this.menu = menu;
 	}
 
 }
