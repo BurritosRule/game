@@ -19,9 +19,11 @@ import org.jline.utils.Log;
 import com.github.game.menu.Menu;
 import com.github.game.menu.MenuController;
 import com.github.game.menu.MenuFactory;
-import com.github.game.menu.MenuRenderer;
 import com.github.game.player.Player;
 import com.github.game.player.PlayerImpl;
+import com.github.game.ui.LocationRenderer;
+import com.github.game.ui.MenuRenderer;
+import com.github.game.ui.UiBuilder;
 import com.github.game.world.Action;
 import com.github.game.world.TowerImpl;
 
@@ -32,11 +34,6 @@ public class Run {
 		TowerImpl castleTower = new TowerImpl("Castle Tower", 10);
 		Player player = new PlayerImpl("Hero", castleTower);
 
-//		Terminal terminal = TerminalBuilder.builder().build();
-//
-//		DefaultParser parser = new DefaultParser();
-//		LineReader reader = LineReaderBuilder.builder().terminal(terminal).parser(parser).build();
-		
 		String menuSelection = null;
 		Menu currentMenu = null;
 
@@ -45,19 +42,33 @@ public class Run {
 		Menu playerMenu = menuFactory.createPlayerMenu();
 
 		MenuController menuController = new MenuController();
-		MenuRenderer menuRenderer = new MenuRenderer();
-		
 		menuController.addMenu(playerMenu);
 		menuController.addMenu(menu);
-		
 		currentMenu = menuController.peekLastMenu();
-		
-		castleTower.getActions().execute();
-		
-		action = menuRenderer.renderLocationMenu(currentMenu, castleTower);
-		actions.execute(menuRenderer.renderLocationMenu(currentMenu, castleTower));
-		
-		//System.out.println(menuRenderer.renderCurrentMenu(menuController));
+
+		UiBuilder ui = new UiBuilder();
+		Terminal terminal = ui.getTerminal();
+		LineReader reader = ui.getReader();
+		DefaultParser parser = ui.getParser();
+
+		MenuRenderer menuRenderer = new MenuRenderer(currentMenu, terminal, reader);
+		LocationRenderer locationRenderer = new LocationRenderer(terminal);
+
+		while (true) {
+			try {
+				locationRenderer.render(castleTower);
+				menuRenderer.render();
+				;
+			} catch (UserInterruptException e) {
+
+			} catch (EndOfFileException e) {
+				return;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		// System.out.println(menuRenderer.renderCurrentMenu(menuController));
 //		terminal.writer().println(currentMenu.header());
 //		terminal.writer().println("Your current location is floor " + castleTower.getCurrentFloor() + " of "
 //				+ castleTower.getName() + "\n");
