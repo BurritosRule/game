@@ -17,18 +17,14 @@ import com.github.game.world.Location;
 import com.github.game.world.Tower;
 
 public class MenuRenderer {
-	private Menu menu;
 	private final Terminal terminal;
-	private final LineReader reader;
 
-	public MenuRenderer(Menu menu, Terminal terminal, LineReader reader) {
-		this.menu = menu;
+	public MenuRenderer(Terminal terminal) {
 		this.terminal = terminal;
-		this.reader = reader;
 
 	}
 
-	public void render() {
+	public Map<String, Action> render(Menu menu) {
 
 		List<Action> possibleInput = null;
 
@@ -44,11 +40,8 @@ public class MenuRenderer {
 
 		terminal.writer().println(menu.header());
 		terminal.writer().println("\n" + keywords);
+		return actions;
 
-	}
-
-	public void setMenu(Menu menu) {
-		this.menu = menu;
 	}
 
 }

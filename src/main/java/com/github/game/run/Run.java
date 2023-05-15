@@ -35,7 +35,6 @@ public class Run {
 		TowerImpl castleTower = new TowerImpl("Castle Tower", 10);
 		Player player = new PlayerImpl("Hero", castleTower);
 
-		String menuSelection = null;
 		Menu currentMenu = null;
 
 		MenuFactory menuFactory = new MenuFactory();
@@ -48,22 +47,22 @@ public class Run {
 		currentMenu = menuController.peekLastMenu();
 
 		UiBuilder ui = new UiBuilder();
-		Terminal terminal = ui.getTerminal();
-		LineReader reader = ui.getReader();
-		DefaultParser parser = ui.getParser();
+		Terminal terminal = ui.createTerminal();
 
-		MenuRenderer menuRenderer = new MenuRenderer(currentMenu, terminal, reader);
+		DefaultParser parser = ui.createParser();
+		LineReader reader = ui.createReader(terminal, parser);
+
+		MenuRenderer menuRenderer = new MenuRenderer(terminal);
 		LocationRenderer locationRenderer = new LocationRenderer(terminal);
-		ActionExecuter actionExecuter = new ActionExecuter(currentMenu);
+		ActionExecuter actionExecuter = new ActionExecuter(reader);
+
+		Map<String, Action> actions = new HashMap<>();
 
 		while (true) {
 			try {
 				locationRenderer.render(castleTower);
-				menuRenderer.render();
-				menuSelection = reader.readLine("Action > ");
-				actionExecuter.executeAction(menuSelection);
-				menuRenderer.setMenu(currentMenu);
-				actionExecuter.setMenu(currentMenu);
+				actions = menuRenderer.render(currentMenu);
+				actionExecuter.executeAction(actions);
 				;
 			} catch (UserInterruptException e) {
 

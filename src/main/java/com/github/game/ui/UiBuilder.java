@@ -10,32 +10,19 @@ import org.jline.terminal.TerminalBuilder;
 
 public class UiBuilder {
 
-	private final Terminal terminal;
-	private final DefaultParser parser;
-	private final LineReader reader;
-
-	public UiBuilder() throws IOException {
-		this.terminal = TerminalBuilder.builder().build();
-		this.parser = new DefaultParser();
-		this.reader = LineReaderBuilder.builder().terminal(terminal).parser(parser).build();
-
-	}
-
-	public Terminal getTerminal() {
-
+	public Terminal createTerminal() throws IOException {
+		Terminal terminal = TerminalBuilder.builder().build();
 		return terminal;
-
 	}
 
-	public DefaultParser getParser() {
-
+	public DefaultParser createParser() {
+		DefaultParser parser = new DefaultParser();
 		return parser;
-
 	}
 
-	public LineReader getReader() {
-
+	public LineReader createReader(Terminal terminal, DefaultParser parser) {
+		LineReader reader = LineReaderBuilder.builder().terminal(terminal).parser(parser).build();
 		return reader;
-
 	}
+
 }
