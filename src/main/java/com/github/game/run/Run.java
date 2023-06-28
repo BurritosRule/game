@@ -1,6 +1,7 @@
 package com.github.game.run;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,10 +43,11 @@ public class Run {
 		Menu playerMenu = menuFactory.createPlayerMenu();
 
 		MenuController menuController = new MenuController();
-		menuController.addMenu(playerMenu);
+		// menuController.addMenu(playerMenu);
 		menuController.addMenu(menu);
-		currentMenu = menuController.peekLastMenu();
-
+		//currentMenu = menuController.peekLastMenu();
+		
+		
 		UiBuilder ui = new UiBuilder();
 		Terminal terminal = ui.createTerminal();
 
@@ -61,7 +63,7 @@ public class Run {
 		while (true) {
 			try {
 				locationRenderer.render(castleTower);
-				actions = menuRenderer.render(currentMenu);
+				actions = menuRenderer.render(menuController.peekLastMenu());
 				actionExecuter.executeAction(actions);
 				;
 			} catch (UserInterruptException e) {
