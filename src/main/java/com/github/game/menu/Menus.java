@@ -7,6 +7,7 @@ import com.github.game.world.Action;
 
 public class Menus {
 	public List<Action> getActions(MenuFactory menuFactory, MenuController menuController) {
+		final Menu playerMenu = menuFactory.createPlayerMenu();
 		List<Action> menus = new ArrayList<Action>();
 		menus.add(new Action() {
 
@@ -17,7 +18,7 @@ public class Menus {
 
 			@Override
 			public void execute() {
-				Menu playerMenu = menuFactory.createPlayerMenu();
+
 				menuController.addMenu(playerMenu);
 
 			}
