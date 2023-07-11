@@ -58,6 +58,7 @@ Item Menu (this header changes based on current player location or menu choice)
 -------------------------
 
 --------------------------
+Item Name: Sword
 Item Description: A sword
 Stats: +2 attack
 ---------------------------
