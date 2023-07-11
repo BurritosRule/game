@@ -33,6 +33,7 @@ Armor: Steel
 Gold: 100
 ---------------------------
 
+
 Inventory Menu (this header changes based on current player location or menu choice)
 -------------------------
 1. Item 1
@@ -51,6 +52,7 @@ Weapon: Sword
 Armor: Steel
 Gold: 100
 ---------------------------
+
 
 Item Menu (this header changes based on current player location or menu choice)
 -------------------------
@@ -74,6 +76,7 @@ Weapon: Sword
 Armor: Steel
 Gold: 100
 ---------------------------
+
 
 Stats Menu (this changes based on current player location or menu choice)
 -------------------------
