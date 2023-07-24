@@ -23,6 +23,7 @@ import com.github.game.menu.MenuFactory;
 import com.github.game.player.Player;
 import com.github.game.player.PlayerImpl;
 import com.github.game.ui.ActionExecuter;
+import com.github.game.ui.InfoBannerRenderer;
 import com.github.game.ui.LocationRenderer;
 import com.github.game.ui.MenuRenderer;
 import com.github.game.ui.UiBuilder;
@@ -54,6 +55,7 @@ public class Run {
 		DefaultParser parser = ui.createParser();
 		LineReader reader = ui.createReader(terminal, parser);
 
+		InfoBannerRenderer infoBannerRenderer = new InfoBannerRenderer(terminal);
 		MenuRenderer menuRenderer = new MenuRenderer(terminal);
 		LocationRenderer locationRenderer = new LocationRenderer(terminal);
 		ActionExecuter actionExecuter = new ActionExecuter(reader);
@@ -62,7 +64,8 @@ public class Run {
 
 		while (true) {
 			try {
-				locationRenderer.render(castleTower);
+				infoBannerRenderer.render(player);
+				//locationRenderer.render(castleTower);
 				actions = menuRenderer.render(menuController.peekLastMenu());
 				actionExecuter.executeAction(actions);
 				;

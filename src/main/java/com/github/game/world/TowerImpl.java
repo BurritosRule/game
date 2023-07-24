@@ -1,6 +1,5 @@
 package com.github.game.world;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +46,11 @@ public class TowerImpl implements Tower {
 	@Override
 	public String getName() {
 		return name;
+	}
+
+	@Override
+	public String getSubLocation() {
+		return "Floor " + getCurrentFloor();
 	}
 
 	@Override
