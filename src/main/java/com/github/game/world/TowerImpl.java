@@ -100,6 +100,22 @@ public class TowerImpl implements Tower {
 			});
 		}
 
+		if (!this.canDescend()) {
+			actions.add(new Action() {
+				// TODO Refactor UI concern out of this class
+				@Override
+				public String getKeyword() {
+					return "exit tower";
+				}
+
+				@Override
+				public void execute() {
+					System.exit(0);
+
+				}
+			});
+		}
+
 		return actions;
 
 	}

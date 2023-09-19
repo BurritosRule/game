@@ -37,18 +37,12 @@ public class Run {
 		TowerImpl castleTower = new TowerImpl("Castle Tower", 10);
 		Player player = new PlayerImpl("Hero", castleTower);
 
-		Menu currentMenu = null;
-
 		MenuFactory menuFactory = new MenuFactory();
 		Menu menu = menuFactory.getMenu(castleTower);
-		Menu playerMenu = menuFactory.createPlayerMenu();
 
 		MenuController menuController = new MenuController();
-		// menuController.addMenu(playerMenu);
 		menuController.addMenu(menu);
-		//currentMenu = menuController.peekLastMenu();
-		
-		
+
 		UiBuilder ui = new UiBuilder();
 		Terminal terminal = ui.createTerminal();
 
@@ -57,7 +51,6 @@ public class Run {
 
 		InfoBannerRenderer infoBannerRenderer = new InfoBannerRenderer(terminal);
 		MenuRenderer menuRenderer = new MenuRenderer(terminal);
-		LocationRenderer locationRenderer = new LocationRenderer(terminal);
 		ActionExecuter actionExecuter = new ActionExecuter(reader);
 
 		Map<String, Action> actions = new HashMap<>();
@@ -65,7 +58,6 @@ public class Run {
 		while (true) {
 			try {
 				infoBannerRenderer.render(player);
-				//locationRenderer.render(castleTower);
 				actions = menuRenderer.render(menuController.peekLastMenu());
 				actionExecuter.executeAction(actions);
 				;

@@ -7,7 +7,7 @@ public class MenuFactory {
 	public Menu getMenu(Location location) {
 
 		if (location instanceof Tower) {
-			return new TowerMenu((Tower) location, new OptionActions().getActions());
+			return new TowerMenu((Tower) location, new OptionActions().getActions(), new PlayerActions().getActions());
 		}
 
 		throw new IllegalArgumentException("Unrecognized location type: " + location);

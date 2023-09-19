@@ -14,7 +14,7 @@ public class PlayerActions {
 
 			@Override
 			public String getKeyword() {
-				return "player";
+				return "inventory";
 			}
 
 			@Override
@@ -22,7 +22,24 @@ public class PlayerActions {
 				System.exit(0);
 
 			}
+
 		});
+
+		actions.add(new Action() {
+
+			@Override
+			public String getKeyword() {
+				return "stats";
+			}
+
+			@Override
+			public void execute() {
+				System.exit(0);
+
+			}
+
+		});
+
 		return actions;
 
 	}
