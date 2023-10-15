@@ -1,6 +1,5 @@
 package com.github.game.menu;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -10,11 +9,17 @@ public class PlayerMenu implements Menu {
 
 	public String header;
 	private final PlayerActions playerActions;
+	private Collection<Action> additionalActions;
 
 	public PlayerMenu(PlayerActions playerActions) {
 
 		this.header = "Player Menu\n----------------------";
 		this.playerActions = playerActions;
+	}
+
+	@Override
+	public void addActions(Collection<Action> additionalActions) {
+		this.additionalActions = additionalActions;
 	}
 
 	@Override
@@ -25,6 +30,7 @@ public class PlayerMenu implements Menu {
 	@Override
 	public List<Action> possibleInput() {
 		List<Action> possibleInput = playerActions.getActions();
+		possibleInput.addAll(additionalActions);
 		return possibleInput;
 	}
 

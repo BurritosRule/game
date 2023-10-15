@@ -1,5 +1,6 @@
 package com.github.game.menu;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.github.game.world.Action;
@@ -7,11 +8,16 @@ import com.github.game.world.Action;
 public class OptionsMenu implements Menu {
 
 	public String header;
-	private final OptionActions optionActions;
+	private OptionActions optionActions;
+	private Collection<Action> additionalActions;
 
-	public OptionsMenu(OptionActions optionActions) {
+	public OptionsMenu() {
 		this.header = "options";
-		this.optionActions = optionActions;
+	}
+
+	@Override
+	public void addActions(Collection<Action> additionalActions) {
+		this.additionalActions = additionalActions;
 	}
 
 	@Override
@@ -22,6 +28,7 @@ public class OptionsMenu implements Menu {
 	@Override
 	public List<Action> possibleInput() {
 		List<Action> possibleInput = optionActions.getActions();
+		possibleInput.addAll(additionalActions);
 		return possibleInput;
 	}
 
