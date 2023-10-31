@@ -8,32 +8,32 @@ import com.github.game.world.Tower;
 
 public class TowerMenu implements Menu {
 
-	private final Tower tower;
-	private Collection<Action> additionalActions;
-	private final String header;
+  private final Tower tower;
+  private Collection<Action> additionalActions;
+  private final String header;
 
-	public TowerMenu(Tower tower) {
-		this.tower = tower;
-		this.header = "Tower Menu\n----------------------";
-	}
+  public TowerMenu(Tower tower) {
+    this.tower = tower;
+    this.header = "Tower Menu\n----------------------";
+  }
 
-	@Override
-	public void addActions(Collection<Action> additionalActions) {
-		this.additionalActions = additionalActions;
+  @Override
+  public void addActions(Collection<Action> additionalActions) {
+    this.additionalActions = additionalActions;
 
-	}
+  }
 
-	@Override
-	public List<Action> possibleInput() {
-		List<Action> possibleInput = tower.getActions();
-		possibleInput.addAll(additionalActions);
+  @Override
+  public List<Action> possibleInput() {
+    List<Action> possibleInput = tower.getActions();
+    possibleInput.addAll(additionalActions);
 
-		return possibleInput;
-	}
+    return possibleInput;
+  }
 
-	@Override
-	public String header() {
-		return header;
-	}
+  @Override
+  public String header() {
+    return header;
+  }
 
 }

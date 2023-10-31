@@ -3,27 +3,27 @@ package com.github.game.player;
 import com.github.game.world.Location;
 
 public interface Player {
-	void setCurrentLocation(Location location);
+  void setCurrentLocation(Location location);
 
-	Location getCurrentLocation();
+  Location getCurrentLocation();
 
-	void setName(String name);
+  void setName(String name);
 
-	void setWeapon(String weapon);
+  void setWeapon(String weapon);
 
-	void setArmor(String armor);
+  void setArmor(String armor);
 
-	void setHp(int hp);
+  void setHp(int hp);
 
-	void setGold(int gold);
+  void setGold(int gold);
 
-	String getName();
+  String getName();
 
-	String getWeapon();
+  String getWeapon();
 
-	String getArmor();
+  String getArmor();
 
-	int getGold();
+  int getGold();
 
-	int getHp();
+  int getHp();
 }

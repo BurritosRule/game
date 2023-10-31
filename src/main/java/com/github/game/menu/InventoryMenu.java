@@ -14,9 +14,9 @@ public class InventoryMenu implements Menu {
   private List<Action> possibleInput = new ArrayList<Action>();
 
   public InventoryMenu(InventoryActions inventoryActions) {
-		this.header = "Inventory Menu\n----------------------";
+    this.header = "Inventory Menu\n----------------------";
     this.inventoryActions = inventoryActions;
-	}
+  }
 
   @Override
   public void addActions(Collection<Action> additionalActions) {
@@ -30,13 +30,13 @@ public class InventoryMenu implements Menu {
 
   @Override
   public List<Action> possibleInput() {
-    //List<Action> possibleInput = optionActions.getActions();
-    //List<Action> possibleInput = new ArrayList<Action>();
+    // List<Action> possibleInput = optionActions.getActions();
+    // List<Action> possibleInput = new ArrayList<Action>();
     possibleInput.addAll(inventoryActions.getActions());
     if (additionalActions.size() > 0) {
       possibleInput.addAll(additionalActions);
     }
-    
+
     return possibleInput;
   }
 

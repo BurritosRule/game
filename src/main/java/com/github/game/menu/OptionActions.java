@@ -7,25 +7,25 @@ import com.github.game.world.Action;
 
 public class OptionActions {
 
-	public List<Action> getActions() {
+  public List<Action> getActions() {
 
-		List<Action> actions = new ArrayList<Action>();
+    List<Action> actions = new ArrayList<Action>();
 
-		actions.add(new Action() {
+    actions.add(new Action() {
 
-			@Override
-			public String getKeyword() {
-				return "quit";
-			}
+      @Override
+      public String getKeyword() {
+        return "quit";
+      }
 
-			@Override
-			public void execute() {
-				System.exit(0);
+      @Override
+      public void execute() {
+        System.exit(0);
 
-			}
-		});
-		return actions;
+      }
+    });
+    return actions;
 
-	}
+  }
 
 }

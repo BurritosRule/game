@@ -7,10 +7,10 @@ import com.github.game.world.Action;
 
 public interface Menu {
 
-	public String header();
+  public String header();
 
-	public List<Action> possibleInput();
-	
-	public void addActions(Collection<Action> additionalActions);
+  public List<Action> possibleInput();
+
+  public void addActions(Collection<Action> additionalActions);
 
 }

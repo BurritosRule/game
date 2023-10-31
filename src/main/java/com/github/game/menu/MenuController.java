@@ -14,7 +14,7 @@ public class MenuController {
     return menuDeque.pop();
   }
 
-    public Menu removeLastMenu() {
+  public Menu removeLastMenu() {
     return menuDeque.removeLast();
   }
 

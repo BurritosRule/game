@@ -1,7 +1,7 @@
 package com.github.game.world;
 
 public interface Action {
-	String getKeyword();
+  String getKeyword();
 
-	void execute();
+  void execute();
 }
