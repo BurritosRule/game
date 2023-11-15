@@ -32,12 +32,11 @@ public class InventoryMenu implements Menu {
   public List<Action> possibleInput() {
     // List<Action> possibleInput = optionActions.getActions();
     // List<Action> possibleInput = new ArrayList<Action>();
-    possibleInput.addAll(inventoryActions.getActions());
+    possibleInput.add(inventoryActions);
     if (additionalActions.size() > 0) {
       possibleInput.addAll(additionalActions);
     }
 
     return possibleInput;
   }
-
 }

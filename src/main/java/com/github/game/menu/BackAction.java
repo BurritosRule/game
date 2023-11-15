@@ -1,29 +1,22 @@
 package com.github.game.menu;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.github.game.world.Action;
 
-public class BackAction {
-  public List<Action> getActions(MenuController menuController) {
+public class BackAction implements Action {
+  private final MenuController menuController;
 
-    List<Action> actions = new ArrayList<Action>();
+  public BackAction(MenuController menuController) {
+    this.menuController = menuController;
+  }
 
-    actions.add(new Action() {
+  @Override
+  public String getKeyword() {
+    return "back";
+  }
 
-      @Override
-      public String getKeyword() {
-        return "back";
-      }
-
-      @Override
-      public void execute() {
-        menuController.removeLastMenu();
-
-      }
-    });
-    return actions;
+  @Override
+  public void execute() {
+    menuController.removeLastMenu();
 
   }
 }

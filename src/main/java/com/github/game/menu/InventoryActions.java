@@ -1,29 +1,17 @@
 package com.github.game.menu;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.github.game.world.Action;
 
-public class InventoryActions {
-  public List<Action> getActions() {
+public class InventoryActions implements Action {
 
-    List<Action> actions = new ArrayList<Action>();
+  @Override
+  public String getKeyword() {
+    return "item";
+  }
 
-    actions.add(new Action() {
-
-      @Override
-      public String getKeyword() {
-        return "item";
-      }
-
-      @Override
-      public void execute() {
-        System.exit(0);
-
-      }
-    });
-    return actions;
+  @Override
+  public void execute() {
+    System.exit(0);
 
   }
 }

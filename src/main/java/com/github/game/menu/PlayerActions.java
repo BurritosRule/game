@@ -1,46 +1,27 @@
 package com.github.game.menu;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.github.game.world.Action;
 
-public class PlayerActions {
-  public List<Action> getActions() {
+public class PlayerActions implements Action {
+  private final MenuController menuController;
+  private final MenuFactory menuFactory;
+  private final MenuUpdater menuUpdater;
 
-    List<Action> actions = new ArrayList<Action>();
+  public PlayerActions(MenuController menuController, MenuFactory menuFactory, MenuUpdater menuUpdater) {
+    this.menuController = menuController;
+    this.menuFactory = menuFactory;
+    this.menuUpdater = menuUpdater;
+  }
 
-    actions.add(new Action() {
+  @Override
+  public String getKeyword() {
+    return "inventory";
+  }
 
-      @Override
-      public String getKeyword() {
-        return "inventory";
-      }
-
-      @Override
-      public void execute() {
-        System.exit(0);
-
-      }
-
-    });
-
-    actions.add(new Action() {
-
-      @Override
-      public String getKeyword() {
-        return "stats";
-      }
-
-      @Override
-      public void execute() {
-        System.exit(0);
-
-      }
-
-    });
-
-    return actions;
-
+  @Override
+  public void execute() {
+    Menu inventoryMenu = menuFactory.createInventoryMenu();
+    menuController.addMenu(inventoryMenu);
+    menuUpdater.updateMenu(inventoryMenu);
   }
 }

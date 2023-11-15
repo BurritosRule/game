@@ -39,6 +39,7 @@ public class Run {
     menuController.addMenu(menu);
 
     MenuUpdater menuUpdater = new MenuUpdater(menuController);
+    menuUpdater.updateMenu(menu);
 
     UiBuilder ui = new UiBuilder();
     Terminal terminal = ui.createTerminal();
@@ -101,7 +102,7 @@ public class Run {
 
     });
 
-    menu.addActions(playerActions);
+    //menu.addActions(playerActions);
 
     while (true) {
       try {
