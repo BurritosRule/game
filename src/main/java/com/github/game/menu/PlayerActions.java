@@ -3,14 +3,10 @@ package com.github.game.menu;
 import com.github.game.world.Action;
 
 public class PlayerActions implements Action {
-  private final MenuController menuController;
-  private final MenuFactory menuFactory;
-  private final MenuUpdater menuUpdater;
+  private final MenuOrchestrator menuOrchestrator;
 
-  public PlayerActions(MenuController menuController, MenuFactory menuFactory, MenuUpdater menuUpdater) {
-    this.menuController = menuController;
-    this.menuFactory = menuFactory;
-    this.menuUpdater = menuUpdater;
+  public PlayerActions(MenuOrchestrator menuOrchestrator) {
+    this.menuOrchestrator = menuOrchestrator;
   }
 
   @Override
@@ -20,8 +16,6 @@ public class PlayerActions implements Action {
 
   @Override
   public void execute() {
-    Menu inventoryMenu = menuFactory.createInventoryMenu();
-    menuController.addMenu(inventoryMenu);
-    menuUpdater.updateMenu(inventoryMenu);
+    menuOrchestrator.addInventoryMenu();
   }
 }

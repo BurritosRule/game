@@ -11,9 +11,13 @@ public class MenuUpdater {
     this.menuController = menuController;
   }
 
+  public void addBackAction(Menu menu) {
+
+  }
+
   public void updateMenu(Menu menu) {
     if (menuController.isBackEnabled()) {
-      menu.addActions(List.of(new BackAction(menuController)));
+      menu.addActions(List.of(new BackAction()));
     }
 
     if (menu instanceof TowerMenu) {
