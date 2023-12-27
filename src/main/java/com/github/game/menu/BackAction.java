@@ -3,16 +3,10 @@ package com.github.game.menu;
 import com.github.game.world.Action;
 
 public class BackAction implements Action {
-  // private final MenuController menuController;
+  private final MenuController menuController;
 
-  // public BackAction(MenuController menuController) {
-  //   this.menuController = menuController;
-  // }
-
-    private final MenuOrchestrator menuOrchestrator;
-
-  public BackAction(MenuOrchestrator menuOrchestrator) {
-    this.menuOrchestrator = menuOrchestrator;
+  public BackAction(MenuController menuController) {
+    this.menuController = menuController;
   }
 
   @Override
@@ -22,6 +16,7 @@ public class BackAction implements Action {
 
   @Override
   public void execute() {
-    menuOrchestrator.getMenuController().removeLastMenu();
+    menuController.removeLastMenu();
+
   }
 }
