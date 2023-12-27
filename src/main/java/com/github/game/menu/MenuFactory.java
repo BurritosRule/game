@@ -4,10 +4,16 @@ import com.github.game.world.Location;
 import com.github.game.world.Tower;
 
 public class MenuFactory {
+  private final MenuController menuController;
+
+  public MenuFactory(MenuController menuController) {
+    this.menuController = menuController;
+  }
+
   public Menu getMenu(Location location) {
 
     if (location instanceof Tower) {
-      return new TowerMenu((Tower) location);
+      return new TowerMenu((Tower) location, menuController, this);
     }
 
     throw new IllegalArgumentException("Unrecognized location type: " + location);

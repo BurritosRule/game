@@ -15,7 +15,6 @@ import org.jline.terminal.Terminal;
 import com.github.game.menu.Menu;
 import com.github.game.menu.MenuController;
 import com.github.game.menu.MenuFactory;
-import com.github.game.menu.MenuUpdater;
 import com.github.game.player.Player;
 import com.github.game.player.PlayerImpl;
 import com.github.game.ui.ActionExecuter;
@@ -32,14 +31,12 @@ public class Run {
     TowerImpl castleTower = new TowerImpl("Castle Tower", 10);
     Player player = new PlayerImpl("Hero", castleTower);
 
-    MenuFactory menuFactory = new MenuFactory();
+    MenuController menuController = new MenuController();
+
+    MenuFactory menuFactory = new MenuFactory(menuController);
     Menu menu = menuFactory.getMenu(castleTower);
 
-    MenuController menuController = new MenuController();
     menuController.addMenu(menu);
-
-    MenuUpdater menuUpdater = new MenuUpdater(menuController);
-    menuUpdater.updateMenu(menu);
 
     UiBuilder ui = new UiBuilder();
     Terminal terminal = ui.createTerminal();
@@ -70,37 +67,36 @@ public class Run {
 
     // menu.addActions(additionalActions);
 
-    List<Action> playerActions = new ArrayList<Action>();
+    // List<Action> playerActions = new ArrayList<Action>();
 
-    playerActions.add(new Action() {
+    // playerActions.add(new Action() {
 
-      @Override
-      public String getKeyword() {
-        return "inventory";
-      }
+    //   @Override
+    //   public String getKeyword() {
+    //     return "inventory";
+    //   }
 
-      @Override
-      public void execute() {
-        Menu inventoryMenu = menuFactory.createInventoryMenu();
-        menuController.addMenu(inventoryMenu);
-        menuUpdater.updateMenu(inventoryMenu);
-      }
-    });
+    //   @Override
+    //   public void execute() {
+    //     Menu inventoryMenu = menuFactory.createInventoryMenu();
+    //     menuController.addMenu(inventoryMenu);
+    //   }
+    // });
 
-    playerActions.add(new Action() {
+    // playerActions.add(new Action() {
 
-      @Override
-      public String getKeyword() {
-        return "stats";
-      }
+    //   @Override
+    //   public String getKeyword() {
+    //     return "stats";
+    //   }
 
-      @Override
-      public void execute() {
-        System.exit(0);
+    //   @Override
+    //   public void execute() {
+    //     System.exit(0);
 
-      }
+    //   }
 
-    });
+    // });
 
     //menu.addActions(playerActions);
 

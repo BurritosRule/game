@@ -11,10 +11,14 @@ public class TowerMenu implements Menu {
   private final Tower tower;
   private Collection<Action> additionalActions;
   private final String header;
+  private final MenuController menuController;
+  private final MenuFactory menuFactory;
 
-  public TowerMenu(Tower tower) {
+  public TowerMenu(Tower tower, MenuController menuController, MenuFactory menuFactory) {
     this.tower = tower;
     this.header = "Tower Menu\n----------------------";
+    this.menuController = menuController;
+    this.menuFactory = menuFactory;
   }
 
   @Override
@@ -26,7 +30,10 @@ public class TowerMenu implements Menu {
   @Override
   public List<Action> possibleInput() {
     List<Action> possibleInput = tower.getActions();
-    possibleInput.addAll(additionalActions);
+    possibleInput.add(new InventoryMenuAction(menuController, menuFactory));
+    if (additionalActions != null) {
+      possibleInput.addAll(additionalActions);
+    }
 
     return possibleInput;
   }
