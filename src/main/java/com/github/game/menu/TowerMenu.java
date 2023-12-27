@@ -31,6 +31,7 @@ public class TowerMenu implements Menu {
   public List<Action> possibleInput() {
     List<Action> possibleInput = tower.getActions();
     possibleInput.add(new InventoryMenuAction(menuController, menuFactory));
+    possibleInput.add(new StatsMenuAction(menuController, menuFactory));
     if (additionalActions != null) {
       possibleInput.addAll(additionalActions);
     }

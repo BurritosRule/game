@@ -26,4 +26,12 @@ public interface Player {
   int getGold();
 
   int getHp();
+
+  int getAttack();
+  
+  void setAttack(int attack);
+
+  int getDefense();
+
+  void setDefense(int defense);
 }

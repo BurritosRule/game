@@ -11,6 +11,8 @@ public class PlayerImpl implements Player {
   private String weapon;
   private String armor;
   private int gold;
+  private int attack;
+  private int defense;
 
   public PlayerImpl(String name, Location location) {
     this.name = name;
@@ -19,6 +21,8 @@ public class PlayerImpl implements Player {
     this.weapon = "Sword";
     this.armor = "Chainmail";
     this.gold = 100;
+    this.attack = 10;
+    this.defense = 10;
 
   }
 
@@ -70,6 +74,22 @@ public class PlayerImpl implements Player {
 
   public void setGold(int gold) {
     this.gold = gold;
+  }
+
+  public int getAttack() {
+    return attack;
+  }
+
+  public void setAttack(int attack) {
+    this.attack = attack;
+  }
+
+  public int getDefense() {
+    return defense;
+  }
+
+  public void setDefense(int defense) {
+    this.defense = defense;
   }
 
 }

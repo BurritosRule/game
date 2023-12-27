@@ -33,7 +33,7 @@ public class Run {
 
     MenuController menuController = new MenuController();
 
-    MenuFactory menuFactory = new MenuFactory(menuController);
+    MenuFactory menuFactory = new MenuFactory(menuController, player);
     Menu menu = menuFactory.getMenu(castleTower);
 
     menuController.addMenu(menu);
