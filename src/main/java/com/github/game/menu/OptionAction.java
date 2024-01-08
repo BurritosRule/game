@@ -2,7 +2,7 @@ package com.github.game.menu;
 
 import com.github.game.world.Action;
 
-public class OptionActions implements Action {
+public class OptionAction implements Action {
 
   @Override
   public String getKeyword() {

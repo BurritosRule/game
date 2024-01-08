@@ -33,4 +33,8 @@ public class MenuController {
   public boolean isBackEnabled() {
     return menuDeque.size() > 1;
   }
+
+  public void clearMenu() {
+     menuDeque.clear();
+  }
 }

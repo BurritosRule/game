@@ -3,6 +3,8 @@ package com.github.game.menu;
 import java.util.Collection;
 import java.util.List;
 
+import javax.swing.event.MenuKeyEvent;
+
 import com.github.game.world.Action;
 import com.github.game.world.Tower;
 
@@ -30,12 +32,16 @@ public class TowerMenu implements Menu {
   @Override
   public List<Action> possibleInput() {
     List<Action> possibleInput = tower.getActions();
+    if (!tower.canDescend()) {
+      possibleInput.add(new ExitLocationAction(menuController));
+    }
     possibleInput.add(new InventoryMenuAction(menuController, menuFactory));
     possibleInput.add(new StatsMenuAction(menuController, menuFactory));
     if (additionalActions != null) {
       possibleInput.addAll(additionalActions);
     }
-
+    possibleInput.add(new OptionAction());
+    
     return possibleInput;
   }
 

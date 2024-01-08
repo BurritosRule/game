@@ -3,6 +3,8 @@ package com.github.game.world;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.github.game.menu.ExitLocationAction;
+
 public class TowerImpl implements Tower {
 
   private String name;
@@ -90,22 +92,6 @@ public class TowerImpl implements Tower {
         @Override
         public void execute() {
           TowerImpl.this.descend();
-
-        }
-      });
-    }
-
-    if (!this.canDescend()) {
-      actions.add(new Action() {
-        // TODO Refactor UI concern out of this class
-        @Override
-        public String getKeyword() {
-          return "exit tower";
-        }
-
-        @Override
-        public void execute() {
-          System.exit(0);
 
         }
       });

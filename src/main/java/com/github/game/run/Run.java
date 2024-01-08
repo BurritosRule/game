@@ -50,56 +50,6 @@ public class Run {
 
     Map<String, Action> actions = new HashMap<>();
 
-    // List<Action> additionalActions = new ArrayList<Action>();
-    // additionalActions.add(new Action() {
-
-    // @Override
-    // public String getKeyword() {
-    // return "quit";
-    // }
-
-    // @Override
-    // public void execute() {
-    // System.exit(0);
-
-    // }
-    // });
-
-    // menu.addActions(additionalActions);
-
-    // List<Action> playerActions = new ArrayList<Action>();
-
-    // playerActions.add(new Action() {
-
-    //   @Override
-    //   public String getKeyword() {
-    //     return "inventory";
-    //   }
-
-    //   @Override
-    //   public void execute() {
-    //     Menu inventoryMenu = menuFactory.createInventoryMenu();
-    //     menuController.addMenu(inventoryMenu);
-    //   }
-    // });
-
-    // playerActions.add(new Action() {
-
-    //   @Override
-    //   public String getKeyword() {
-    //     return "stats";
-    //   }
-
-    //   @Override
-    //   public void execute() {
-    //     System.exit(0);
-
-    //   }
-
-    // });
-
-    //menu.addActions(playerActions);
-
     while (true) {
       try {
         infoBannerRenderer.render(player);
