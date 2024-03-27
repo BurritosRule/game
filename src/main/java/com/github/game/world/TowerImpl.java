@@ -3,8 +3,6 @@ package com.github.game.world;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.game.menu.ExitLocationAction;
-
 public class TowerImpl implements Tower {
 
   private String name;

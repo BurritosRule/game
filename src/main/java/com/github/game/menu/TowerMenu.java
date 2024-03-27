@@ -3,8 +3,6 @@ package com.github.game.menu;
 import java.util.Collection;
 import java.util.List;
 
-import javax.swing.event.MenuKeyEvent;
-
 import com.github.game.world.Action;
 import com.github.game.world.Tower;
 
