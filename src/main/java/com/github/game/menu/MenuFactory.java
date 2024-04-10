@@ -3,6 +3,7 @@ package com.github.game.menu;
 import com.github.game.player.Player;
 import com.github.game.world.Location;
 import com.github.game.world.Tower;
+import com.github.game.world.Umbrus;
 
 public class MenuFactory {
   private final MenuController menuController;
@@ -17,6 +18,10 @@ public class MenuFactory {
 
     if (location instanceof Tower) {
       return new TowerMenu((Tower) location, menuController, this);
+    }
+
+    if (location instanceof Umbrus) {
+      return new UmbrusMenu(new UmbrusMenuActions(menuController, this));
     }
 
     throw new IllegalArgumentException("Unrecognized location type: " + location);

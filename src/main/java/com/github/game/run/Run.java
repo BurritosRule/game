@@ -21,18 +21,20 @@ import com.github.game.ui.MenuRenderer;
 import com.github.game.ui.UiBuilder;
 import com.github.game.world.Action;
 import com.github.game.world.TowerImpl;
+import com.github.game.world.Umbrus;
 
 public class Run {
 
   public static void main(String[] args) throws IOException {
 
-    TowerImpl castleTower = new TowerImpl("Castle Tower", 10);
-    Player player = new PlayerImpl("Hero", castleTower);
+    // TowerImpl castleTower = new TowerImpl("Castle Tower", 10);
+    Umbrus umbrus = new Umbrus();
+    Player player = new PlayerImpl("Hero", umbrus);
 
     MenuController menuController = new MenuController();
 
     MenuFactory menuFactory = new MenuFactory(menuController, player);
-    Menu menu = menuFactory.getMenu(castleTower);
+    Menu menu = menuFactory.getMenu(umbrus);
 
     menuController.addMenu(menu);
 
