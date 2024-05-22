@@ -13,15 +13,15 @@ public class UmbrusMenuActions implements Action {
 
   @Override
   public String getKeyword() {
-    return "leave";
+    return "leave town";
   }
 
   @Override
   public void execute() {
-    // Clear the menu deque
-    // Add menu for next location (some kind of path?)
-    Menu statsMenu = menuFactory.createStatsMenu();
-    menuController.addMenu(statsMenu);
+    menuController.clearMenu();
+    Menu windingPathMenu = menuFactory.createWindingPathMenu();
+    menuController.addMenu(windingPathMenu);
+    // This action results in a new player location... need a playerController to setLocation?
   }
 
 }

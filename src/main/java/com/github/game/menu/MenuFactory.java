@@ -30,11 +30,13 @@ public class MenuFactory {
 
   public Menu createInventoryMenu() {
     return new InventoryMenu(new InventoryActions());
-
   }
 
   public Menu createStatsMenu() {
     return new StatsMenu(player);
+  }
 
+  public Menu createWindingPathMenu() {
+    return new WindingPathMenu(new WindingPathMenuActions(menuController, this));
   }
 }
