@@ -1,4 +1,4 @@
-package com.github.game.interactables;
+package com.github.game.world;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
