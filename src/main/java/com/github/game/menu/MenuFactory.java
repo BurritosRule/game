@@ -5,14 +5,17 @@ import com.github.game.world.Location;
 import com.github.game.world.Tower;
 import com.github.game.world.Umbrus;
 import com.github.game.world.WindingPath;
+import com.github.game.world.World;
 
 public class MenuFactory {
   private final MenuController menuController;
   private final Player player;
+  private final World world;
 
-  public MenuFactory(MenuController menuController, Player player) {
+  public MenuFactory(MenuController menuController, Player player, World world) {
     this.menuController = menuController;
     this.player = player;
+    this.world = world;
   }
 
   public Menu getMenu(Location location) {
@@ -22,7 +25,7 @@ public class MenuFactory {
     }
 
     if (location instanceof Umbrus) {
-      return new UmbrusMenu(new UmbrusMenuActions(menuController, this));
+      return new UmbrusMenu(new UmbrusMenuActions(menuController, this, world));
     }
 
     if (location instanceof WindingPath) {
