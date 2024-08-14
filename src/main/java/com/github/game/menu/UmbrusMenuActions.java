@@ -1,6 +1,7 @@
 package com.github.game.menu;
 
 import com.github.game.world.Action;
+import com.github.game.world.WindingPath;
 
 public class UmbrusMenuActions implements Action {
   private final MenuController menuController;
@@ -19,7 +20,7 @@ public class UmbrusMenuActions implements Action {
   @Override
   public void execute() {
     menuController.clearMenu();
-    Menu windingPathMenu = menuFactory.createWindingPathMenu();
+    Menu windingPathMenu = menuFactory.getMenu(new WindingPath());
     menuController.addMenu(windingPathMenu);
     // This action results in a new player location... need a playerController to setLocation?
   }

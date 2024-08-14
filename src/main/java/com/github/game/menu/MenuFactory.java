@@ -4,6 +4,7 @@ import com.github.game.player.Player;
 import com.github.game.world.Location;
 import com.github.game.world.Tower;
 import com.github.game.world.Umbrus;
+import com.github.game.world.WindingPath;
 
 public class MenuFactory {
   private final MenuController menuController;
@@ -24,6 +25,10 @@ public class MenuFactory {
       return new UmbrusMenu(new UmbrusMenuActions(menuController, this));
     }
 
+    if (location instanceof WindingPath) {
+      return new WindingPathMenu((WindingPath) location);
+    }
+
     throw new IllegalArgumentException("Unrecognized location type: " + location);
 
   }
@@ -34,9 +39,5 @@ public class MenuFactory {
 
   public Menu createStatsMenu() {
     return new StatsMenu(player);
-  }
-
-  public Menu createWindingPathMenu() {
-    return new WindingPathMenu(new WindingPathMenuActions(menuController, this));
   }
 }

@@ -1,21 +1,19 @@
 package com.github.game.menu;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import com.github.game.world.Action;
+import com.github.game.world.WindingPath;
 
-public class WindingPathMenu implements PathMenu{
+public class WindingPathMenu implements PathMenu {
+  private final WindingPath windingPath;
   public String header;
-  private final WindingPathMenuActions windingPathMenuActions;
   private Collection<Action> additionalActions;
 
-  private List<Action> possibleInput = new ArrayList<Action>();
-
-  public WindingPathMenu(WindingPathMenuActions windingPathMenuActions) {
+  public WindingPathMenu(WindingPath windingPath) {
     this.header = "Winding Path Menu\n----------------------";
-    this.windingPathMenuActions = windingPathMenuActions;
+    this.windingPath = windingPath;
   }
 
   @Override
@@ -30,7 +28,7 @@ public class WindingPathMenu implements PathMenu{
 
   @Override
   public List<Action> possibleInput() {
-    possibleInput.add(windingPathMenuActions);
+    List<Action> possibleInput = windingPath.getActions();
     if (additionalActions != null && additionalActions.size() > 0) {
       possibleInput.addAll(additionalActions);
     }

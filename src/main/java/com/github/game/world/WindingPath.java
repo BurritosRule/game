@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WindingPath implements Path {
+
+  private final Chest chest = new Chest();
   @Override
   public List<Action> getActions() {
     List<Action> actions = new ArrayList<Action>();
@@ -20,6 +22,8 @@ public class WindingPath implements Path {
         WindingPath.this.getDescription();
       }
     });
+
+    actions.addAll(chest.getActions());
 
     return actions;
   }
