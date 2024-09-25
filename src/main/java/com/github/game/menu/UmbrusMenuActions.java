@@ -1,6 +1,7 @@
 package com.github.game.menu;
 
 import com.github.game.world.Action;
+import com.github.game.world.LocationName;
 import com.github.game.world.World;
 
 public class UmbrusMenuActions implements Action {
@@ -22,7 +23,7 @@ public class UmbrusMenuActions implements Action {
   @Override
   public void execute() {
     menuController.clearMenu();
-    Menu windingPathMenu = menuFactory.getMenu(world.getLocation("WindingPath"));
+    Menu windingPathMenu = menuFactory.getMenu(world.getLocation(LocationName.WINDING_PATH));
     menuController.addMenu(windingPathMenu);
   }
 

@@ -9,13 +9,12 @@ public class World {
     this.locationFactory = locationFactory;
   }
 
-  HashMap<String, Location> locations = new HashMap<>();
+  HashMap<LocationName, Location> locations = new HashMap<>();
 
-  public void createWorld() {
-    locations.put("WindingPath", locationFactory.createLocation("WindingPath"));
-  }
-
-  public Location getLocation(String location) {
-    return locations.get(location);
+  public Location getLocation(LocationName locationName) {
+    if (!locations.containsKey(locationName)) {
+      locations.put(locationName, locationFactory.createLocation(locationName));
+    }
+    return locations.get(locationName);
   }
 }

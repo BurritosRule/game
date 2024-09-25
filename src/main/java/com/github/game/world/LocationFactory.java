@@ -2,14 +2,13 @@ package com.github.game.world;
 
 public class LocationFactory {
 
-  // Make location a constant or enum instead of string?
-  public Location createLocation(String location) {
+  public Location createLocation(LocationName locationName) {
 
-    if ("WindingPath".equals(location)) {
+    if (locationName == LocationName.WINDING_PATH) {
       return new WindingPath();
     }
 
-    throw new IllegalArgumentException("Unrecognized location type: " + location);
+    throw new IllegalArgumentException("Unrecognized location name: " + locationName);
 
   }
 }

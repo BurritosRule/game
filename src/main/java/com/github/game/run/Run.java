@@ -21,6 +21,7 @@ import com.github.game.ui.MenuRenderer;
 import com.github.game.ui.UiBuilder;
 import com.github.game.world.Action;
 import com.github.game.world.LocationFactory;
+import com.github.game.world.LocationName;
 import com.github.game.world.Umbrus;
 import com.github.game.world.World;
 
@@ -35,7 +36,6 @@ public class Run {
     MenuController menuController = new MenuController();
     LocationFactory locationFactory = new LocationFactory();
     World world = new World(locationFactory);
-    world.createWorld();
 
     MenuFactory menuFactory = new MenuFactory(menuController, player, world);
     Menu menu = menuFactory.getMenu(umbrus);
