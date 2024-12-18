@@ -9,4 +9,6 @@ public interface Location {
 
   public String getSubLocation();
 
+  public String getDescription();
+
 }

@@ -45,6 +45,11 @@ public class TowerImpl implements Tower {
   }
 
   @Override
+  public String getDescription() {
+    return "Test Description";
+  }
+
+  @Override
   public String getSubLocation() {
     return "Floor " + getCurrentFloor();
   }

@@ -17,6 +17,12 @@ public class DungeonImpl implements Dungeon {
   }
 
   @Override
+  public String getDescription() {
+    // TODO Auto-generated method stub
+    return "Test Description";
+  }
+
+  @Override
   public String getSubLocation() {
     // TODO Auto-generated method stub
     return null;

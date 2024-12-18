@@ -40,7 +40,14 @@ public class WindingPath implements Path {
 
   @Override
   public String getDescription() {
-    return "This is a path\n";
+    return "The winding path snaked through the shadowy forest, illuminated only by the occasional\n"
+        + "flicker of ghostly will-o'-wisps. Ancient, gnarled trees arched overhead, their twisted\n"
+        + "branches clawing at the murky sky. The air was thick with the scent of damp earth and\n"
+        + "decaying leaves, while the distant howl of a creature echoed through the labyrinthine\n"
+        + "woods. Along the path, eerie fungi glowed with an unnatural light, casting long, sinister\n"
+        + "shadows that seemed to whisper secrets of the forgotten and the damned. This was a\n"
+        + "place where light dared not linger, and every step forward felt like a descent into deeper\n"
+        + "darkness\n";
   }
 
 }

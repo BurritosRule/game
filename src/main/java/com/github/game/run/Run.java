@@ -17,11 +17,11 @@ import com.github.game.player.Player;
 import com.github.game.player.PlayerImpl;
 import com.github.game.ui.ActionExecuter;
 import com.github.game.ui.InfoBannerRenderer;
+import com.github.game.ui.LocationDescriptionRenderer;
 import com.github.game.ui.MenuRenderer;
 import com.github.game.ui.UiBuilder;
 import com.github.game.world.Action;
 import com.github.game.world.LocationFactory;
-import com.github.game.world.LocationName;
 import com.github.game.world.Umbrus;
 import com.github.game.world.World;
 
@@ -49,6 +49,7 @@ public class Run {
     LineReader reader = ui.createReader(terminal, parser);
 
     InfoBannerRenderer infoBannerRenderer = new InfoBannerRenderer(terminal);
+    LocationDescriptionRenderer locationDescriptionRenderer = new LocationDescriptionRenderer(terminal);
     MenuRenderer menuRenderer = new MenuRenderer(terminal);
     ActionExecuter actionExecuter = new ActionExecuter(reader);
 
@@ -57,6 +58,7 @@ public class Run {
     while (true) {
       try {
         infoBannerRenderer.render(player);
+        locationDescriptionRenderer.render(location);
         actions = menuRenderer.render(menuController.peekLastMenu());
         actionExecuter.executeAction(actions);
         ;
