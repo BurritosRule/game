@@ -1,6 +1,10 @@
 package com.github.game.menu;
 
+import java.lang.reflect.AccessFlag.Location;
+
 import com.github.game.world.Action;
+import com.github.game.world.EventBusSingleton;
+import com.github.game.world.LocationChangedEvent;
 import com.github.game.world.LocationName;
 import com.github.game.world.World;
 
@@ -25,6 +29,7 @@ public class UmbrusMenuActions implements Action {
     menuController.clearMenu();
     Menu windingPathMenu = menuFactory.getMenu(world.getLocation(LocationName.WINDING_PATH));
     menuController.addMenu(windingPathMenu);
+    EventBusSingleton.getInstance().post(new LocationChangedEvent(LocationName.WINDING_PATH));
   }
 
 }

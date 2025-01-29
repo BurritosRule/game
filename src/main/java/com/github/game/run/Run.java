@@ -58,7 +58,7 @@ public class Run {
     while (true) {
       try {
         infoBannerRenderer.render(player);
-        locationDescriptionRenderer.render(location);
+        //locationDescriptionRenderer.render(location);
         actions = menuRenderer.render(menuController.peekLastMenu());
         actionExecuter.executeAction(actions);
         ;
