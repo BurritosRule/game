@@ -1,7 +1,5 @@
 package com.github.game.menu;
 
-import java.lang.reflect.AccessFlag.Location;
-
 import com.github.game.world.Action;
 import com.github.game.world.EventBusSingleton;
 import com.github.game.world.LocationChangedEvent;
