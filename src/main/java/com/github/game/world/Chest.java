@@ -1,33 +1,19 @@
 package com.github.game.world;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.github.game.state.GameState;
 
 public class Chest implements Interactable {
 
   private String state;
 
-  private PropertyChangeSupport support;
-
   public Chest() {
-    support = new PropertyChangeSupport(this);
+    this.state = GameState.getInstance().getChestState();
   }
 
-  public void addPropertyChangeListener(PropertyChangeListener pcl) {
-    support.addPropertyChangeListener(pcl);
-  }
-
-  public void removePropertyChangeListener(PropertyChangeListener pcl) {
-    support.removePropertyChangeListener(pcl);
-  }
-
-  public void setState(String value) {
-    support.firePropertyChange("state", this.state, value);
-    this.state = value;
-  }
-
+  @Override
   public List<Action> getActions() {
     List<Action> actions = new ArrayList<Action>();
 
@@ -40,8 +26,7 @@ public class Chest implements Interactable {
 
         @Override
         public void execute() {
-          Chest.this.setState(("closed"));
-          ;
+          EventBusSingleton.getInstance().post(new ChestStateChangedEvent("closed"));
         }
       });
     } else {
@@ -53,8 +38,7 @@ public class Chest implements Interactable {
 
         @Override
         public void execute() {
-          Chest.this.setState(("opened"));
-          ;
+          EventBusSingleton.getInstance().post(new ChestStateChangedEvent("opened"));
         }
       });
     }

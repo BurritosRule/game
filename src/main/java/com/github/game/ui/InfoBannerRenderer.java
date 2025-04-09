@@ -41,7 +41,7 @@ public class InfoBannerRenderer {
     // terminal.writer().println("Location: " + location.getName());
     // }
 
-    terminal.writer().println("Location: " + location.toString());
+    terminal.writer().println("Location: " + location.getDisplayName());
 
     terminal.writer().println("HP: " + hp);
     terminal.writer().println("Weapon: " + weapon);
