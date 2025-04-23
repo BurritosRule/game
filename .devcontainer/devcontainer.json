@@ -1,7 +1,8 @@
 {
   "image": "mcr.microsoft.com/devcontainers/java:21",
   "runArgs": [
-    "--userns=keep-id:uid=1000,gid=1000"
-   ],
-   "containerUser": "vscode"
+    "--userns=keep-id",
+    "--security-opt",
+    "label=disable"
+  ]
 }
