@@ -15,6 +15,8 @@ import com.github.game.menu.MenuController;
 import com.github.game.menu.MenuFactory;
 import com.github.game.player.Player;
 import com.github.game.player.PlayerImpl;
+import com.github.game.state.GameState;
+import com.github.game.state.GameStatePersistence;
 import com.github.game.ui.ActionExecuter;
 import com.github.game.ui.InfoBannerRenderer;
 import com.github.game.ui.LocationDescriptionRenderer;
@@ -28,6 +30,8 @@ import com.github.game.world.World;
 public class Run {
 
   public static void main(String[] args) throws IOException {
+
+    GameStatePersistence.loadFromFile(GameState.getInstance(), "savegame.txt");
 
     // TowerImpl castleTower = new TowerImpl("Castle Tower", 10);
     Umbrus umbrus = new Umbrus();

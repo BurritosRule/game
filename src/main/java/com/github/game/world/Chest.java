@@ -3,14 +3,16 @@ package com.github.game.world;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.game.state.GameState;
-
 public class Chest implements Interactable {
 
   private String state;
 
   public Chest() {
-    this.state = GameState.getInstance().getChestState();
+    this.state = "closed"; // Default internal state
+  }
+
+  public Chest(String initialState) {
+    this.state = initialState;
   }
 
   @Override
@@ -26,7 +28,10 @@ public class Chest implements Interactable {
 
         @Override
         public void execute() {
-          EventBusSingleton.getInstance().post(new ChestStateChangedEvent("closed"));
+          if (!"closed".equals(state)) {
+            state = "closed";
+            EventBusSingleton.getInstance().post(new ChestStateChangedEvent(state));
+          }
         }
       });
     } else {
@@ -38,7 +43,10 @@ public class Chest implements Interactable {
 
         @Override
         public void execute() {
-          EventBusSingleton.getInstance().post(new ChestStateChangedEvent("opened"));
+          if (!"opened".equals(state)) {
+            state = "opened";
+            EventBusSingleton.getInstance().post(new ChestStateChangedEvent(state));
+          }
         }
       });
     }

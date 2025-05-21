@@ -13,7 +13,6 @@ public class GameState {
 
   private GameState() {
     this.playerLocation = LocationName.UMBRUS; // Default location
-    this.chestState = "closed"; // Default chest state
     EventBusSingleton.getInstance().register(this);
   }
 

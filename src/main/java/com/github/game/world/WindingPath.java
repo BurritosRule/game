@@ -3,9 +3,13 @@ package com.github.game.world;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.github.game.state.GameState;
+import com.github.game.state.GameStatePersistence;
+
 public class WindingPath implements Path {
 
-  private final Chest chest = new Chest();
+  private final Chest chest = new Chest(GameState.getInstance().getChestState());
+
   @Override
   public List<Action> getActions() {
     List<Action> actions = new ArrayList<Action>();
@@ -14,12 +18,12 @@ public class WindingPath implements Path {
       // TODO Refactor UI concern out of this class
       @Override
       public String getKeyword() {
-        return "description";
+        return "save game";
       }
 
       @Override
       public void execute() {
-        WindingPath.this.getDescription();
+        GameStatePersistence.saveToFile(GameState.getInstance(), "savegame.txt");
       }
     });
 
