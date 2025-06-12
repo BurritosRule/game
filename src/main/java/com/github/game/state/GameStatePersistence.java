@@ -9,23 +9,38 @@ public class GameStatePersistence {
       writer.write("playerLocation=" + gameState.getPlayerLocation() + "\n");
       writer.write("chestState=" + gameState.getChestState() + "\n");
     } catch (IOException e) {
-      e.printStackTrace();
+      System.out.println("Error saving game state to '" + filename + "': " + e.getMessage());
+      System.out.println("Please check file permissions or disk space and try again.");
     }
   }
 
-  public static void loadFromFile(GameState gameState, String filename) {
-    try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-      String line;
-      while ((line = reader.readLine()) != null) {
-        if (line.startsWith("playerLocation=")) {
-          gameState.setPlayerLocation(
-              com.github.game.world.LocationName.valueOf(line.substring("playerLocation=".length())));
-        } else if (line.startsWith("chestState=")) {
-          gameState.setChestState(line.substring("chestState=".length()));
+  public static void loadFromFile(GameState gameState, String filename, org.jline.reader.LineReader reader) {
+    boolean loaded = false;
+    String currentFilename = filename;
+    while (!loaded) {
+      try (BufferedReader fileReader = new BufferedReader(new FileReader(currentFilename))) {
+        String line;
+        while ((line = fileReader.readLine()) != null) {
+          if (line.startsWith("playerLocation=")) {
+            gameState.setPlayerLocation(
+                com.github.game.world.LocationName.valueOf(line.substring("playerLocation=".length())));
+          } else if (line.startsWith("chestState=")) {
+            gameState.setChestState(line.substring("chestState=".length()));
+          }
         }
+        loaded = true;
+      } catch (FileNotFoundException e) {
+        System.out.println("Save file not found: '" + currentFilename + "'.");
+        String input = reader.readLine("Please enter the path to your save file (or leave blank to cancel): ");
+        if (input == null || input.trim().isEmpty()) {
+          System.out.println("Load cancelled.");
+          break;
+        }
+        currentFilename = input.trim();
+      } catch (IOException e) {
+        System.out.println("Error loading game state from '" + currentFilename + "': " + e.getMessage());
+        break;
       }
-    } catch (IOException e) {
-      e.printStackTrace();
     }
   }
 }

@@ -14,7 +14,8 @@ public class StatsMenu implements Menu {
   private List<Action> possibleInput = new ArrayList<Action>();
 
   public StatsMenu(Player player) {
-    this.header = "Stats Menu\n----------------------\n\nAttack: " + player.getAttack() + "\nDefense: " + player.getDefense();
+    this.header = "Stats Menu\n----------------------\n\nAttack: " + player.getAttack() + "\nDefense: "
+        + player.getDefense();
   }
 
   @Override
@@ -29,10 +30,10 @@ public class StatsMenu implements Menu {
 
   @Override
   public List<Action> possibleInput() {
-    if (additionalActions.size() > 0) {
+    possibleInput.clear();
+    if (additionalActions != null && additionalActions.size() > 0) {
       possibleInput.addAll(additionalActions);
     }
-
     return possibleInput;
   }
 }

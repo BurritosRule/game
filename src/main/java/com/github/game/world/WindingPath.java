@@ -14,19 +14,6 @@ public class WindingPath implements Path {
   public List<Action> getActions() {
     List<Action> actions = new ArrayList<Action>();
 
-    actions.add(new Action() {
-      // TODO Refactor UI concern out of this class
-      @Override
-      public String getKeyword() {
-        return "save game";
-      }
-
-      @Override
-      public void execute() {
-        GameStatePersistence.saveToFile(GameState.getInstance(), "savegame.txt");
-      }
-    });
-
     actions.addAll(chest.getActions());
 
     return actions;

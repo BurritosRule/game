@@ -15,6 +15,7 @@ import com.github.game.menu.MenuController;
 import com.github.game.menu.MenuFactory;
 import com.github.game.player.Player;
 import com.github.game.player.PlayerImpl;
+import com.github.game.state.AutoSaveListener;
 import com.github.game.state.GameState;
 import com.github.game.state.GameStatePersistence;
 import com.github.game.ui.ActionExecuter;
@@ -31,7 +32,14 @@ public class Run {
 
   public static void main(String[] args) throws IOException {
 
-    GameStatePersistence.loadFromFile(GameState.getInstance(), "savegame.txt");
+    UiBuilder ui = new UiBuilder();
+    Terminal terminal = ui.createTerminal();
+
+    DefaultParser parser = ui.createParser();
+    LineReader reader = ui.createReader(terminal, parser);
+
+    GameStatePersistence.loadFromFile(GameState.getInstance(), "savegame.txt", reader);
+    new AutoSaveListener("savegame.txt");
 
     // TowerImpl castleTower = new TowerImpl("Castle Tower", 10);
     Umbrus umbrus = new Umbrus();
@@ -45,12 +53,6 @@ public class Run {
     Menu menu = menuFactory.getMenu(umbrus);
 
     menuController.addMenu(menu);
-
-    UiBuilder ui = new UiBuilder();
-    Terminal terminal = ui.createTerminal();
-
-    DefaultParser parser = ui.createParser();
-    LineReader reader = ui.createReader(terminal, parser);
 
     InfoBannerRenderer infoBannerRenderer = new InfoBannerRenderer(terminal);
     LocationDescriptionRenderer locationDescriptionRenderer = new LocationDescriptionRenderer(terminal);

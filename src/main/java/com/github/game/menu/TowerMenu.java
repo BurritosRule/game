@@ -38,8 +38,6 @@ public class TowerMenu implements Menu {
     if (additionalActions != null) {
       possibleInput.addAll(additionalActions);
     }
-    possibleInput.add(new OptionAction());
-    
     return possibleInput;
   }
 

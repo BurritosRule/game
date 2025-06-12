@@ -32,7 +32,6 @@ public class WindingPathMenu implements PathMenu {
     if (additionalActions != null && additionalActions.size() > 0) {
       possibleInput.addAll(additionalActions);
     }
-
     return possibleInput;
   }
 }

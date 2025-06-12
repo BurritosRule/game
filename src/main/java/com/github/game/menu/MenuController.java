@@ -1,6 +1,8 @@
 package com.github.game.menu;
 
+import com.github.game.world.Action;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
@@ -8,10 +10,13 @@ public class MenuController {
   private Deque<Menu> menuDeque = new ArrayDeque<>();
 
   public void addMenu(Menu menu) {
-    menuDeque.add(menu);
+    List<Action> globalActions = new ArrayList<>();
+    globalActions.add(new OptionsMenuAction(this, null)); // Add Options to all menus
     if (isBackEnabled()) {
-      menu.addActions(List.of(new BackAction(this)));
+      globalActions.add(new BackAction(this));
     }
+    menu.addActions(globalActions);
+    menuDeque.add(menu);
   }
 
   public Menu popMenu() {
@@ -35,6 +40,6 @@ public class MenuController {
   }
 
   public void clearMenu() {
-     menuDeque.clear();
+    menuDeque.clear();
   }
 }

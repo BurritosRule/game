@@ -30,11 +30,11 @@ public class UmbrusMenu implements TownMenu {
 
   @Override
   public List<Action> possibleInput() {
+    possibleInput.clear();
     possibleInput.add(umbrusMenuActions);
     if (additionalActions != null && additionalActions.size() > 0) {
       possibleInput.addAll(additionalActions);
     }
-
     return possibleInput;
   }
 

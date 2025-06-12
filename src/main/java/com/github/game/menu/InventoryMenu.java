@@ -30,13 +30,11 @@ public class InventoryMenu implements Menu {
 
   @Override
   public List<Action> possibleInput() {
-    // List<Action> possibleInput = optionActions.getActions();
-    // List<Action> possibleInput = new ArrayList<Action>();
+    possibleInput.clear();
     possibleInput.add(inventoryActions);
-    if (additionalActions.size() > 0) {
+    if (additionalActions != null && additionalActions.size() > 0) {
       possibleInput.addAll(additionalActions);
     }
-
     return possibleInput;
   }
 }
