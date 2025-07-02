@@ -31,7 +31,7 @@ public class MenuFactory {
     if (location instanceof WindingPath) {
       WindingPathMenu menu = new WindingPathMenu((WindingPath) location);
       // Inject the location-specific action (continue to tower) using addActions
-      menu.addActions(java.util.List.of(new WindingPathMenuActions(menuController)));
+      menu.addActions(java.util.List.of(new WindingPathMenuActions(menuController, this)));
       return menu;
     }
 

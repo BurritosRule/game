@@ -2,7 +2,8 @@ package com.github.game.world;
 
 public enum LocationName {
   UMBRUS,
-  WINDING_PATH;
+  WINDING_PATH,
+  TOWER;
 
   public String getDisplayName() {
     // Convert the enum name to a title-cased format
