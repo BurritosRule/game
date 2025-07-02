@@ -4,11 +4,9 @@ import com.github.game.world.Action;
 
 public class WindingPathMenuActions implements Action {
   private final MenuController menuController;
-  private final MenuFactory menuFactory;
 
-  public WindingPathMenuActions(MenuController menuController, MenuFactory menuFactory) {
+  public WindingPathMenuActions(MenuController menuController) {
     this.menuController = menuController;
-    this.menuFactory = menuFactory;
   }
 
   @Override
@@ -18,6 +16,7 @@ public class WindingPathMenuActions implements Action {
 
   @Override
   public void execute() {
-
+    System.out.println("You continue to the tower (not yet implemented)");
+    // In the future, transition to the tower menu here
   }
 }
