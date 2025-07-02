@@ -29,7 +29,10 @@ public class MenuFactory {
     }
 
     if (location instanceof WindingPath) {
-      return new WindingPathMenu((WindingPath) location);
+      WindingPathMenu menu = new WindingPathMenu((WindingPath) location);
+      // Add location-specific action via addActions
+      menu.addActions(java.util.List.of(new WindingPathMenuActions(menuController, this)));
+      return menu;
     }
 
     throw new IllegalArgumentException("Unrecognized location type: " + location);

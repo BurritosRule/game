@@ -10,11 +10,13 @@ public class MenuController {
   private Deque<Menu> menuDeque = new ArrayDeque<>();
 
   public void addMenu(Menu menu) {
+    // Only add global actions (Options, Back) via addActions
     List<Action> globalActions = new ArrayList<>();
-    globalActions.add(new OptionsMenuAction(this, null)); // Add Options to all menus
+    globalActions.add(new OptionsMenuAction(this, null));
     if (isBackEnabled()) {
       globalActions.add(new BackAction(this));
     }
+    // Merge with any existing additional actions
     menu.addActions(globalActions);
     menuDeque.add(menu);
   }
