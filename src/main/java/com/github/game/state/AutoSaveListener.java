@@ -4,6 +4,7 @@ import com.github.game.world.ChestStateChangedEvent;
 import com.github.game.world.LocationChangedEvent;
 import com.github.game.world.EventBusSingleton;
 import com.google.common.eventbus.Subscribe;
+import com.github.game.player.PlayerState;
 
 public class AutoSaveListener {
   private final String saveFile;
@@ -20,6 +21,11 @@ public class AutoSaveListener {
 
   @Subscribe
   public void onLocationChanged(LocationChangedEvent event) {
+    // Update PlayerState with new location for persistence
+    PlayerState playerState = (PlayerState) GameState.getInstance().getState("PlayerLocation");
+    if (playerState != null) {
+      playerState.setCurrentLocation(event.getNewLocationName());
+    }
     GameStatePersistence.saveToFile(GameState.getInstance(), saveFile);
   }
 

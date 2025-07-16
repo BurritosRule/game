@@ -27,6 +27,7 @@ import com.github.game.world.Action;
 import com.github.game.world.LocationFactory;
 import com.github.game.world.Umbrus;
 import com.github.game.world.World;
+import com.github.game.world.PersistableRegistry;
 
 public class Run {
 
@@ -38,20 +39,31 @@ public class Run {
     DefaultParser parser = ui.createParser();
     LineReader reader = ui.createReader(terminal, parser);
 
-    GameStatePersistence.loadFromFile(GameState.getInstance(), "savegame.txt", reader);
-    new AutoSaveListener("savegame.txt");
+    // Register PlayerState for persistence
+    com.github.game.player.PlayerState playerState = new com.github.game.player.PlayerState(
+        com.github.game.world.LocationName.UMBRUS);
 
-    // TowerImpl castleTower = new TowerImpl("Castle Tower", 10);
-    Umbrus umbrus = new Umbrus();
-    Player player = new PlayerImpl("Hero", umbrus);
-
-    MenuController menuController = new MenuController();
     LocationFactory locationFactory = new LocationFactory();
     World world = new World(locationFactory);
 
-    MenuFactory menuFactory = new MenuFactory(menuController, player, world);
-    Menu menu = menuFactory.getMenu(umbrus);
+    // Register all persistables before loading so deserialization works
+    PersistableRegistry.registerAll(GameState.getInstance());
 
+    // Load persisted state (will update playerState and location states)
+    GameStatePersistence.loadFromFile(GameState.getInstance(), "savegame.txt", reader);
+    new AutoSaveListener("savegame.txt");
+
+    Player player = new PlayerImpl("Hero", null);
+    if (playerState.getCurrentLocation() != null) {
+      player.setCurrentLocation(world.getLocation(playerState.getCurrentLocation()));
+    } else {
+      player.setCurrentLocation(world.getLocation(com.github.game.world.LocationName.UMBRUS));
+    }
+
+    MenuController menuController = new MenuController();
+    MenuFactory menuFactory = new MenuFactory(menuController, player, world);
+    // Use player's current location for menu creation
+    Menu menu = menuFactory.getMenu(player.getCurrentLocation());
     menuController.addMenu(menu);
 
     InfoBannerRenderer infoBannerRenderer = new InfoBannerRenderer(terminal);
@@ -78,4 +90,9 @@ public class Run {
     }
 
   }
+
+  // After player location changes, update PlayerState for persistence
+  // Example: when changing location, call
+  // playerState.setCurrentLocation(newLocationName);
+  // You may want to wire this into your location change logic or event system.
 }

@@ -1,13 +1,16 @@
 package com.github.game.state;
 
 import java.io.*;
+import java.util.Map;
+import com.github.game.world.Persistable;
 
 public class GameStatePersistence {
 
   public static void saveToFile(GameState gameState, String filename) {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
-      writer.write("playerLocation=" + gameState.getPlayerLocation() + "\n");
-      writer.write("chestState=" + gameState.getChestState() + "\n");
+      for (Map.Entry<String, Persistable> entry : gameState.getAllState().entrySet()) {
+        writer.write(entry.getKey() + "=" + entry.getValue().serialize() + "\n");
+      }
     } catch (IOException e) {
       System.out.println("Error saving game state to '" + filename + "': " + e.getMessage());
       System.out.println("Please check file permissions or disk space and try again.");
@@ -21,11 +24,14 @@ public class GameStatePersistence {
       try (BufferedReader fileReader = new BufferedReader(new FileReader(currentFilename))) {
         String line;
         while ((line = fileReader.readLine()) != null) {
-          if (line.startsWith("playerLocation=")) {
-            gameState.setPlayerLocation(
-                com.github.game.world.LocationName.valueOf(line.substring("playerLocation=".length())));
-          } else if (line.startsWith("chestState=")) {
-            gameState.setChestState(line.substring("chestState=".length()));
+          int idx = line.indexOf('=');
+          if (idx > 0) {
+            String key = line.substring(0, idx);
+            String value = line.substring(idx + 1);
+            Persistable obj = gameState.getState(key);
+            if (obj != null) {
+              obj.deserialize(value);
+            }
           }
         }
         loaded = true;
