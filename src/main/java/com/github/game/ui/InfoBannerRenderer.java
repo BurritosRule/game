@@ -3,7 +3,6 @@ package com.github.game.ui;
 import org.jline.terminal.Terminal;
 
 import com.github.game.player.Player;
-import com.github.game.state.GameState;
 
 public class InfoBannerRenderer {
   private int hp;
@@ -20,11 +19,10 @@ public class InfoBannerRenderer {
   }
 
   public void render(Player player) {
-    // Get location from GameState as a Persistable, if available
-    com.github.game.world.Persistable locationPersistable = GameState.getInstance().getState("location");
+    // Use player's current location for display
     String locationDisplay = "Unknown";
-    if (locationPersistable != null) {
-      locationDisplay = locationPersistable.getIdentifier();
+    if (player.getCurrentLocation() != null) {
+      locationDisplay = player.getCurrentLocation().getName();
     }
     hp = player.getHp();
     weapon = player.getWeapon();

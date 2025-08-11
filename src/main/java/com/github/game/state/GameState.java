@@ -2,15 +2,13 @@ package com.github.game.state;
 
 import com.github.game.world.EventBusSingleton;
 import com.github.game.world.StateChangedEvent;
-import com.github.game.world.Persistable;
-import com.google.common.eventbus.Subscribe;
 import java.util.HashMap;
 import java.util.Map;
 
 public class GameState {
   private static volatile GameState instance;
-  // Map of identifier -> Persistable
-  private final Map<String, Persistable> stateMap = new HashMap<>();
+  // Map of identifier -> Object (was Persistable)
+  private final Map<String, Object> stateMap = new HashMap<>();
 
   private GameState() {
     EventBusSingleton.getInstance().register(this);
@@ -27,20 +25,20 @@ public class GameState {
     return instance;
   }
 
-  @Subscribe
-  public void handleStateChange(StateChangedEvent event) {
+  @com.google.common.eventbus.Subscribe
+  public void handleStateChange(com.github.game.world.StateChangedEvent event) {
     stateMap.put(event.getIdentifier(), event.getPersistable());
   }
 
-  public Persistable getState(String identifier) {
+  public Object getState(String identifier) {
     return stateMap.get(identifier);
   }
 
-  public void setState(String identifier, Persistable persistable) {
-    stateMap.put(identifier, persistable);
+  public void setState(String identifier, Object obj) {
+    stateMap.put(identifier, obj);
   }
 
-  public Map<String, Persistable> getAllState() {
+  public java.util.Map<String, Object> getAllState() {
     return stateMap;
   }
 }

@@ -2,9 +2,9 @@ package com.github.game.world;
 
 public class StateChangedEvent {
   private final String identifier;
-  private final Persistable persistable;
+  private final Object persistable;
 
-  public StateChangedEvent(String identifier, Persistable persistable) {
+  public StateChangedEvent(String identifier, Object persistable) {
     this.identifier = identifier;
     this.persistable = persistable;
   }
@@ -13,7 +13,7 @@ public class StateChangedEvent {
     return identifier;
   }
 
-  public Persistable getPersistable() {
+  public Object getPersistable() {
     return persistable;
   }
 }

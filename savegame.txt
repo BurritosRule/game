@@ -1,2 +1,0 @@
-WindingPath=chestState=opened
-PlayerLocation=WINDING_PATH

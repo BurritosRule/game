@@ -1,16 +1,14 @@
 package com.github.game.player;
 
 import com.github.game.state.GameState;
-import com.github.game.world.Location;
 import com.github.game.world.LocationName;
-import com.github.game.world.Persistable;
 
-public class PlayerState implements Persistable {
+public class PlayerState implements com.github.game.state.GameSerializable<com.github.game.player.PlayerStateDTO> {
   private LocationName currentLocation;
 
   public PlayerState(LocationName initialLocation) {
     this.currentLocation = initialLocation;
-    GameState.getInstance().setState(getIdentifier(), this);
+    GameState.getInstance().setState(getPersistenceId(), this);
   }
 
   public LocationName getCurrentLocation() {
@@ -22,19 +20,26 @@ public class PlayerState implements Persistable {
   }
 
   @Override
-  public String getIdentifier() {
-    return "PlayerLocation";
+  public String getPersistenceId() {
+    return "PlayerState";
   }
 
   @Override
-  public String serialize() {
-    return currentLocation.name();
+  public com.github.game.player.PlayerStateDTO toDTO() {
+    com.github.game.player.PlayerStateDTO dto = new com.github.game.player.PlayerStateDTO();
+    dto.playerLocation = currentLocation != null ? currentLocation.name() : null;
+    return dto;
   }
 
   @Override
-  public void deserialize(String data) {
-    if (data != null && !data.isEmpty()) {
-      this.currentLocation = LocationName.valueOf(data);
+  public void fromDTO(com.github.game.player.PlayerStateDTO dto) {
+    if (dto.playerLocation != null) {
+      this.currentLocation = com.github.game.world.LocationName.valueOf(dto.playerLocation);
     }
+  }
+
+  @Override
+  public Class<com.github.game.player.PlayerStateDTO> getDTOClass() {
+    return com.github.game.player.PlayerStateDTO.class;
   }
 }

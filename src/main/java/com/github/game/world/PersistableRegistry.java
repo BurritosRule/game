@@ -4,10 +4,7 @@ import com.github.game.state.GameState;
 
 public class PersistableRegistry {
   public static void registerAll(GameState gameState) {
-    // Register all persistable objects needed for deserialization
-    if (gameState.getState("WindingPath") == null) {
-      gameState.setState("WindingPath", new WindingPath());
-    }
-    // Add more persistables here as needed
+    // Register other persistables as needed (WindingPath no longer needs
+    // registration for chest persistence)
   }
 }

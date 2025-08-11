@@ -1,8 +1,6 @@
 package com.github.game.menu;
 
 import com.github.game.world.Action;
-import com.github.game.world.EventBusSingleton;
-import com.github.game.world.LocationChangedEvent;
 import com.github.game.world.LocationName;
 import com.github.game.world.World;
 
@@ -26,8 +24,13 @@ public class UmbrusMenuActions implements Action {
   public void execute() {
     menuController.clearMenu();
     Menu windingPathMenu = menuFactory.getMenu(world.getLocation(LocationName.WINDING_PATH));
+    if (windingPathMenu == null) {
+      System.err.println("Error: Could not create Winding Path menu. Menu is null.");
+      return;
+    }
     menuController.addMenu(windingPathMenu);
-    EventBusSingleton.getInstance().post(new LocationChangedEvent(LocationName.WINDING_PATH));
+    // Use helper to update PlayerState and post event
+    com.github.game.world.LocationChangedEvent.updatePlayerLocationAndPost(LocationName.WINDING_PATH);
   }
 
 }
