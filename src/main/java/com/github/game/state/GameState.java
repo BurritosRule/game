@@ -1,7 +1,6 @@
 package com.github.game.state;
 
 import com.github.game.world.EventBusSingleton;
-import com.github.game.world.StateChangedEvent;
 import java.util.HashMap;
 import java.util.Map;
 

@@ -3,8 +3,7 @@ package com.github.game.world;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Chest
-    implements Interactable, com.github.game.state.GameSerializable<com.github.game.world.ChestStateDTO> {
+public class Chest implements Interactable {
 
   private String state;
 
@@ -60,28 +59,5 @@ public class Chest
       });
     }
     return actions;
-  }
-
-  @Override
-  public String getPersistenceId() {
-    return "Chest";
-  }
-
-  @Override
-  public com.github.game.world.ChestStateDTO toDTO() {
-    com.github.game.world.ChestStateDTO dto = new com.github.game.world.ChestStateDTO();
-    dto.chestId = "Chest";
-    dto.opened = "opened".equals(this.state);
-    return dto;
-  }
-
-  @Override
-  public void fromDTO(com.github.game.world.ChestStateDTO dto) {
-    this.state = dto.opened ? "opened" : "closed";
-  }
-
-  @Override
-  public Class<com.github.game.world.ChestStateDTO> getDTOClass() {
-    return com.github.game.world.ChestStateDTO.class;
   }
 }

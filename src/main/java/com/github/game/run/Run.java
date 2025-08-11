@@ -40,14 +40,11 @@ public class Run {
     // Register PlayerState for persistence
     com.github.game.player.PlayerState playerState = new com.github.game.player.PlayerState(
         com.github.game.world.LocationName.UMBRUS);
-    // Create and register WindingPath before loading
-    com.github.game.world.WindingPath windingPath = new com.github.game.world.WindingPath();
+    // Register all persistables before loading so deserialization works
+    PersistableRegistry.registerAll(GameState.getInstance());
 
     LocationFactory locationFactory = new LocationFactory();
     World world = new World(locationFactory);
-
-    // Register all persistables before loading so deserialization works
-    PersistableRegistry.registerAll(GameState.getInstance());
 
     // Load persisted state (will update playerState and location states)
     GameStatePersistence.loadFromFile(GameState.getInstance(), "savegame.json", reader);
@@ -56,9 +53,8 @@ public class Run {
     // Load all registered objects from unified save file
     com.github.game.state.GamePersistence.loadGame();
 
-    // Use the registered PlayerState and WindingPath from GameState
+    // Use the registered PlayerState from GameState
     playerState = (com.github.game.player.PlayerState) GameState.getInstance().getState("PlayerState");
-    windingPath = (com.github.game.world.WindingPath) GameState.getInstance().getState("WindingPath");
 
     Player player = new PlayerImpl("Hero", null);
     if (playerState.getCurrentLocation() != null) {

@@ -3,13 +3,13 @@ package com.github.game.world;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WindingPath implements Path, com.github.game.state.GameSerializable<com.github.game.world.ChestStateDTO> {
+public class WindingPath implements Path, com.github.game.state.GameSerializable<WindingPathDTO> {
 
   private final Chest chest;
 
   public WindingPath() {
     this.chest = new Chest();
-    // Register this WindingPath in GameState for autosave lookup
+    // Register this WindingPath in GameState for autosave lookup and persistence
     com.github.game.state.GameState.getInstance().setState(getPersistenceId(), this);
   }
 
@@ -48,23 +48,28 @@ public class WindingPath implements Path, com.github.game.state.GameSerializable
     return chest;
   }
 
+  // --- Persistence logic for nested chest ---
   @Override
   public String getPersistenceId() {
     return "WindingPath";
   }
 
   @Override
-  public com.github.game.world.ChestStateDTO toDTO() {
-    return chest.toDTO();
+  public WindingPathDTO toDTO() {
+    WindingPathDTO dto = new WindingPathDTO();
+    dto.chest = new ChestPersistenceAdapter(chest).toDTO();
+    return dto;
   }
 
   @Override
-  public void fromDTO(com.github.game.world.ChestStateDTO dto) {
-    chest.fromDTO(dto);
+  public void fromDTO(WindingPathDTO dto) {
+    if (dto != null && dto.chest != null) {
+      new ChestPersistenceAdapter(chest).fromDTO(dto.chest);
+    }
   }
 
   @Override
-  public Class<com.github.game.world.ChestStateDTO> getDTOClass() {
-    return com.github.game.world.ChestStateDTO.class;
+  public Class<WindingPathDTO> getDTOClass() {
+    return WindingPathDTO.class;
   }
 }
