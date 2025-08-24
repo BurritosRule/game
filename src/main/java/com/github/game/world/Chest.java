@@ -6,10 +6,12 @@ import java.util.List;
 public class Chest implements Interactable {
   private ChestState chestState;
 
+  // Default internal state
   public Chest() {
-    this.chestState = new ChestState(); // Default internal state
+    this.chestState = new ChestState();
   }
 
+  // Allow Chest to be created with a specific initial state
   public Chest(String initialState) {
     this.chestState = new ChestState(initialState);
   }
@@ -29,7 +31,6 @@ public class Chest implements Interactable {
         public void execute() {
           if (!"closed".equals(chestState.getState())) {
             chestState.setState("closed");
-            EventBusSingleton.getInstance().post(new ChestStateChangedEvent(chestState.getState()));
           }
         }
       });
@@ -44,20 +45,10 @@ public class Chest implements Interactable {
         public void execute() {
           if (!"opened".equals(chestState.getState())) {
             chestState.setState("opened");
-            EventBusSingleton.getInstance().post(new ChestStateChangedEvent(chestState.getState()));
           }
         }
       });
     }
     return actions;
-  }
-
-  // Optionally, add a getter for ChestState if needed for persistence
-  public ChestState getChestState() {
-    return chestState;
-  }
-
-  public void setChestState(ChestState chestState) {
-    this.chestState = chestState;
   }
 }

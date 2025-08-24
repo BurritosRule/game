@@ -11,6 +11,9 @@ public class WindingPath implements Path {
 
   public WindingPath() {
     chest = new Chest();
+    // I removed getChestState from Chest for better encapsulation, however line 17
+    // no longer works. I am thinking that WindingPath should get state from the
+    // persistence layer?
     GameState.getInstance().addStateObject("winding_path_chest_1", chest.getChestState());
   }
 

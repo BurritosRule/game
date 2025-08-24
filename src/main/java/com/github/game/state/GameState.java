@@ -58,9 +58,11 @@ public class GameState {
 
   @Subscribe
   public void handleChestStateChange(ChestStateChangedEvent event) {
-    Persistable chestState = stateObjects.get("chestState");
-    if (chestState instanceof com.github.game.world.ChestState) {
-      ((com.github.game.world.ChestState) chestState).setState(event.getNewState());
-    }
+    // Generic event handler: can trigger persistence or notify listeners
+    // For example, auto-save game state when any chest state changes
+    // GameStatePersistence.saveToFile(this, "savegame.txt");
+    // Or simply log the event for now
+    System.out.println("Chest state changed: " + event.getNewState());
+    // No direct manipulation of state objects here
   }
 }

@@ -2,9 +2,6 @@ package com.github.game.world;
 
 import com.github.game.state.Persistable;
 
-/**
- * Represents the internal state of a Chest.
- */
 public class ChestState implements Persistable {
   private String state;
 
@@ -21,6 +18,9 @@ public class ChestState implements Persistable {
   }
 
   public void setState(String state) {
-    this.state = state;
+    if (!state.equals(this.state)) {
+      this.state = state;
+      EventBusSingleton.getInstance().post(new ChestStateChangedEvent(state));
+    }
   }
 }
