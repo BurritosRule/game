@@ -3,43 +3,16 @@ package com.github.game.world;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Chest implements Interactable, Persistable {
+public class Chest implements Interactable {
 
   private String state;
 
   public Chest() {
     this.state = "closed"; // Default internal state
-    // Only register Chest if it's not part of another Persistable (e.g.,
-    // WindingPath)
-    // Remove self-registration to avoid standalone persistence
   }
 
   public Chest(String initialState) {
     this.state = initialState;
-  }
-
-  public String getState() {
-    return state;
-  }
-
-  public void setState(String state) {
-    this.state = state;
-    // [DEBUG] Chest.setState called, new state: " + state
-  }
-
-  @Override
-  public String getIdentifier() {
-    return "Chest";
-  }
-
-  @Override
-  public String serialize() {
-    return state;
-  }
-
-  @Override
-  public void deserialize(String data) {
-    this.state = data;
   }
 
   @Override

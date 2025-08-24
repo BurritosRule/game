@@ -3,36 +3,12 @@ package com.github.game.world;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WindingPath implements Path, Persistable {
+import com.github.game.state.GameState;
+import com.github.game.state.GameStatePersistence;
 
-  private final Chest chest;
+public class WindingPath implements Path {
 
-  public WindingPath() {
-    this.chest = new Chest();
-    // Do not register in GameState here; let LocationFactory handle registration
-    // after loading
-  }
-
-  // Persistable implementation
-  @Override
-  public String getIdentifier() {
-    return "WindingPath";
-  }
-
-  @Override
-  public String serialize() {
-    // Example: serialize chest state
-    return "chestState=" + chest.getState();
-  }
-
-  @Override
-  public void deserialize(String data) {
-    // [DEBUG] WindingPath.deserialize called with data: " + data
-    if (data != null && data.startsWith("chestState=")) {
-      String state = data.substring("chestState=".length());
-      chest.setState(state);
-    }
-  }
+  private final Chest chest = new Chest(GameState.getInstance().getChestState());
 
   @Override
   public List<Action> getActions() {
@@ -63,10 +39,6 @@ public class WindingPath implements Path, Persistable {
         + "shadows that seemed to whisper secrets of the forgotten and the damned. This was a\n"
         + "place where light dared not linger, and every step forward felt like a descent into deeper\n"
         + "darkness\n";
-  }
-
-  public Chest getChest() {
-    return chest;
   }
 
 }

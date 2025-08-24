@@ -1,2 +1,2 @@
-WindingPath=chestState=opened
-PlayerLocation=WINDING_PATH
+playerLocation=WINDING_PATH
+chestState=closed

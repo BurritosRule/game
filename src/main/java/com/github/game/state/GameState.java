@@ -1,18 +1,18 @@
 package com.github.game.state;
 
+import com.github.game.world.ChestStateChangedEvent;
 import com.github.game.world.EventBusSingleton;
-import com.github.game.world.StateChangedEvent;
-import com.github.game.world.Persistable;
+import com.github.game.world.LocationChangedEvent;
+import com.github.game.world.LocationName;
 import com.google.common.eventbus.Subscribe;
-import java.util.HashMap;
-import java.util.Map;
 
 public class GameState {
   private static volatile GameState instance;
-  // Map of identifier -> Persistable
-  private final Map<String, Persistable> stateMap = new HashMap<>();
+  private LocationName playerLocation;
+  private String chestState;
 
   private GameState() {
+    this.playerLocation = LocationName.UMBRUS; // Default location
     EventBusSingleton.getInstance().register(this);
   }
 
@@ -28,19 +28,28 @@ public class GameState {
   }
 
   @Subscribe
-  public void handleStateChange(StateChangedEvent event) {
-    stateMap.put(event.getIdentifier(), event.getPersistable());
+  public void handleLocationChange(LocationChangedEvent event) {
+    setPlayerLocation(event.getNewLocationName());
   }
 
-  public Persistable getState(String identifier) {
-    return stateMap.get(identifier);
+  public LocationName getPlayerLocation() {
+    return playerLocation;
   }
 
-  public void setState(String identifier, Persistable persistable) {
-    stateMap.put(identifier, persistable);
+  public void setPlayerLocation(LocationName playerLocation) {
+    this.playerLocation = playerLocation;
   }
 
-  public Map<String, Persistable> getAllState() {
-    return stateMap;
+  @Subscribe
+  public void handleChestStateChange(ChestStateChangedEvent event) {
+    setChestState(event.getNewState());
+  }
+
+  public void setChestState(String chestState) {
+    this.chestState = chestState;
+  }
+
+  public String getChestState() {
+    return chestState;
   }
 }
