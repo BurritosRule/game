@@ -10,10 +10,6 @@ public class MenuController {
   private Deque<Menu> menuDeque = new ArrayDeque<>();
 
   public void addMenu(Menu menu) {
-    if (menu == null) {
-      System.err.println("Warning: Tried to add a null menu to the menu controller. Ignoring.");
-      return;
-    }
     // Only add global actions (Options, Back) via addActions
     List<Action> globalActions = new ArrayList<>();
     globalActions.add(new OptionsMenuAction(this, null));

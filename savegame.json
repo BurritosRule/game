@@ -1,1 +1,0 @@
-{"schema":"GameSaveV3","entries":[{"id":"PlayerState","type":"com.github.game.player.PlayerStateDTO","dto":{"schema":"PlayerStateV1","playerLocation":"UMBRUS"}},{"id":"WindingPath","type":"com.github.game.world.ChestStateDTO","dto":{"schema":"ChestV1","chestId":"Chest","opened":false}}]}

@@ -3,10 +3,7 @@ package com.github.game.world;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.game.state.ChestFilePersistence;
-
-public class Chest
-    implements Interactable, com.github.game.state.GameSerializable<com.github.game.world.ChestStateDTO> {
+public class Chest implements Interactable, Persistable {
 
   private String state;
 
@@ -28,6 +25,21 @@ public class Chest
   public void setState(String state) {
     this.state = state;
     // [DEBUG] Chest.setState called, new state: " + state
+  }
+
+  @Override
+  public String getIdentifier() {
+    return "Chest";
+  }
+
+  @Override
+  public String serialize() {
+    return state;
+  }
+
+  @Override
+  public void deserialize(String data) {
+    this.state = data;
   }
 
   @Override
@@ -66,31 +78,5 @@ public class Chest
       });
     }
     return actions;
-  }
-
-  // Chest state is now persisted via ChestFilePersistence in WindingPath and
-  // AutoSaveListener
-
-  @Override
-  public String getPersistenceId() {
-    return "Chest";
-  }
-
-  @Override
-  public com.github.game.world.ChestStateDTO toDTO() {
-    com.github.game.world.ChestStateDTO dto = new com.github.game.world.ChestStateDTO();
-    dto.chestId = "Chest";
-    dto.opened = "opened".equals(this.state);
-    return dto;
-  }
-
-  @Override
-  public void fromDTO(com.github.game.world.ChestStateDTO dto) {
-    this.state = dto.opened ? "opened" : "closed";
-  }
-
-  @Override
-  public Class<com.github.game.world.ChestStateDTO> getDTOClass() {
-    return com.github.game.world.ChestStateDTO.class;
   }
 }

@@ -104,21 +104,4 @@ public class TowerImpl implements Tower {
 
   }
 
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public void setNumOfFloors(int numOfFloors) {
-    this.numOfFloors = numOfFloors;
-  }
-
-  public void setCurrentFloor(int currentFloor) {
-    this.currentFloor = currentFloor;
-  }
-
-  // Example usage: Save tower state
-  // TowerFilePersistence.saveTowerToFile(this);
-  // Example usage: Load tower state
-  // TowerFilePersistence.loadTowerFromFile(this);
-
 }
