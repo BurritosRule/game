@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.github.game.state.GameState;
-import com.github.game.state.GameStatePersistence;
 
 public class WindingPath implements Path {
 
-  private final Chest chest = new Chest(GameState.getInstance().getChestState());
+  private final Chest chest;
+
+  public WindingPath() {
+    chest = new Chest();
+    GameState.getInstance().addStateObject("winding_path_chest_1", chest.getChestState());
+  }
 
   @Override
   public List<Action> getActions() {

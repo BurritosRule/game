@@ -4,15 +4,17 @@ import com.github.game.world.ChestStateChangedEvent;
 import com.github.game.world.EventBusSingleton;
 import com.github.game.world.LocationChangedEvent;
 import com.github.game.world.LocationName;
+import com.github.game.state.Persistable;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import com.google.common.eventbus.Subscribe;
 
 public class GameState {
   private static volatile GameState instance;
-  private LocationName playerLocation;
-  private String chestState;
+  private final Map<String, Persistable> stateObjects;
 
   private GameState() {
-    this.playerLocation = LocationName.UMBRUS; // Default location
+    this.stateObjects = new ConcurrentHashMap<>();
     EventBusSingleton.getInstance().register(this);
   }
 
@@ -27,29 +29,38 @@ public class GameState {
     return instance;
   }
 
+  public void addStateObject(String key, Persistable stateObject) {
+    stateObjects.put(key, stateObject);
+  }
+
+  public Persistable getStateObject(String key) {
+    return stateObjects.get(key);
+  }
+
+  public void removeStateObject(String key) {
+    stateObjects.remove(key);
+  }
+
+  public Map<String, Persistable> getAllStateObjects() {
+    return stateObjects;
+  }
+
+  // Example event handling: update state objects as needed
   @Subscribe
   public void handleLocationChange(LocationChangedEvent event) {
-    setPlayerLocation(event.getNewLocationName());
-  }
-
-  public LocationName getPlayerLocation() {
-    return playerLocation;
-  }
-
-  public void setPlayerLocation(LocationName playerLocation) {
-    this.playerLocation = playerLocation;
+    // If you have a LocationState object, update it here
+    Persistable locationState = stateObjects.get("playerLocation");
+    if (locationState instanceof LocationName) {
+      // Replace with new location
+      stateObjects.put("playerLocation", event.getNewLocationName());
+    }
   }
 
   @Subscribe
   public void handleChestStateChange(ChestStateChangedEvent event) {
-    setChestState(event.getNewState());
-  }
-
-  public void setChestState(String chestState) {
-    this.chestState = chestState;
-  }
-
-  public String getChestState() {
-    return chestState;
+    Persistable chestState = stateObjects.get("chestState");
+    if (chestState instanceof com.github.game.world.ChestState) {
+      ((com.github.game.world.ChestState) chestState).setState(event.getNewState());
+    }
   }
 }
