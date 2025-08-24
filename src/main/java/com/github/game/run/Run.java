@@ -24,6 +24,7 @@ import com.github.game.ui.MenuRenderer;
 import com.github.game.ui.UiBuilder;
 import com.github.game.world.Action;
 import com.github.game.world.LocationFactory;
+import com.github.game.world.Umbrus;
 import com.github.game.world.World;
 import com.github.game.world.PersistableRegistry;
 
@@ -79,11 +80,26 @@ public class Run {
 
     Map<String, Action> actions = new HashMap<>();
 
+    // Load Umbrus state from file using new persistence system
+    com.github.game.world.Umbrus umbrus = (com.github.game.world.Umbrus) world
+        .getLocation(com.github.game.world.LocationName.UMBRUS);
+    com.github.game.world.UmbrusFilePersistence.loadUmbrusFromFile(umbrus);
+
     // Ensure savegame.json exists on first run
     java.nio.file.Path savePath = java.nio.file.Paths.get("savegame.json");
     if (!java.nio.file.Files.exists(savePath)) {
       com.github.game.state.GamePersistence.saveGame();
     }
+
+    // If you have a Tower instance to persist, load its state as well (example):
+    // com.github.game.world.TowerImpl tower = ...;
+    // com.github.game.world.TowerFilePersistence.loadTowerFromFile(tower);
+
+    // Optionally, add a shutdown hook to save Umbrus and Tower state:
+    // Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+    // com.github.game.world.UmbrusFilePersistence.saveUmbrusToFile(umbrus);
+    // com.github.game.world.TowerFilePersistence.saveTowerToFile(tower);
+    // }));
 
     while (true) {
       try {
@@ -103,5 +119,13 @@ public class Run {
         e.printStackTrace();
       }
     }
+
+    // Optionally, save player state on shutdown or autosave using:
+    // com.github.game.player.PlayerStateFilePersistence.savePlayerStateToFile(playerState);
   }
+
+  // After player location changes, update PlayerState for persistence
+  // Example: when changing location, call
+  // playerState.setCurrentLocation(newLocationName);
+  // You may want to wire this into your location change logic or event system.
 }

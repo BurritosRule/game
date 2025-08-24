@@ -3,13 +3,18 @@ package com.github.game.world;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.github.game.state.ChestFilePersistence;
+
 public class Chest
     implements Interactable, com.github.game.state.GameSerializable<com.github.game.world.ChestStateDTO> {
 
   private String state;
 
   public Chest() {
-    this.state = "closed";
+    this.state = "closed"; // Default internal state
+    // Only register Chest if it's not part of another Persistable (e.g.,
+    // WindingPath)
+    // Remove self-registration to avoid standalone persistence
   }
 
   public Chest(String initialState) {
@@ -22,6 +27,7 @@ public class Chest
 
   public void setState(String state) {
     this.state = state;
+    // [DEBUG] Chest.setState called, new state: " + state
   }
 
   @Override
@@ -61,6 +67,9 @@ public class Chest
     }
     return actions;
   }
+
+  // Chest state is now persisted via ChestFilePersistence in WindingPath and
+  // AutoSaveListener
 
   @Override
   public String getPersistenceId() {
