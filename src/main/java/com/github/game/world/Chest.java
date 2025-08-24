@@ -4,22 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Chest implements Interactable {
-
-  private String state;
+  private ChestState chestState;
 
   public Chest() {
-    this.state = "closed"; // Default internal state
+    this.chestState = new ChestState(); // Default internal state
   }
 
   public Chest(String initialState) {
-    this.state = initialState;
+    this.chestState = new ChestState(initialState);
   }
 
   @Override
   public List<Action> getActions() {
     List<Action> actions = new ArrayList<Action>();
 
-    if ("opened".equals(state)) {
+    if ("opened".equals(chestState.getState())) {
       actions.add(new Action() {
         @Override
         public String getKeyword() {
@@ -28,9 +27,9 @@ public class Chest implements Interactable {
 
         @Override
         public void execute() {
-          if (!"closed".equals(state)) {
-            state = "closed";
-            EventBusSingleton.getInstance().post(new ChestStateChangedEvent(state));
+          if (!"closed".equals(chestState.getState())) {
+            chestState.setState("closed");
+            EventBusSingleton.getInstance().post(new ChestStateChangedEvent(chestState.getState()));
           }
         }
       });
@@ -43,13 +42,22 @@ public class Chest implements Interactable {
 
         @Override
         public void execute() {
-          if (!"opened".equals(state)) {
-            state = "opened";
-            EventBusSingleton.getInstance().post(new ChestStateChangedEvent(state));
+          if (!"opened".equals(chestState.getState())) {
+            chestState.setState("opened");
+            EventBusSingleton.getInstance().post(new ChestStateChangedEvent(chestState.getState()));
           }
         }
       });
     }
     return actions;
+  }
+
+  // Optionally, add a getter for ChestState if needed for persistence
+  public ChestState getChestState() {
+    return chestState;
+  }
+
+  public void setChestState(ChestState chestState) {
+    this.chestState = chestState;
   }
 }
