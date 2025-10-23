@@ -4,23 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Chest implements Interactable {
-  private ChestState chestState;
+  private final ChestState chestState;
 
-  // Default internal state
-  public Chest() {
-    this.chestState = new ChestState();
-  }
-
-  // Allow Chest to be created with a specific initial state
-  public Chest(String initialState) {
-    this.chestState = new ChestState(initialState);
+  public Chest(ChestState chestState) {
+    this.chestState = chestState;
   }
 
   @Override
   public List<Action> getActions() {
     List<Action> actions = new ArrayList<Action>();
 
-    if ("opened".equals(chestState.getState())) {
+    if (chestState.getState() == ChestStateType.OPENED) {
       actions.add(new Action() {
         @Override
         public String getKeyword() {
@@ -29,8 +23,8 @@ public class Chest implements Interactable {
 
         @Override
         public void execute() {
-          if (!"closed".equals(chestState.getState())) {
-            chestState.setState("closed");
+          if (chestState.getState() != ChestStateType.CLOSED) {
+            chestState.setState(ChestStateType.CLOSED);
           }
         }
       });
@@ -43,8 +37,8 @@ public class Chest implements Interactable {
 
         @Override
         public void execute() {
-          if (!"opened".equals(chestState.getState())) {
-            chestState.setState("opened");
+          if (chestState.getState() != ChestStateType.OPENED) {
+            chestState.setState(ChestStateType.OPENED);
           }
         }
       });

@@ -3,24 +3,24 @@ package com.github.game.world;
 import com.github.game.state.Persistable;
 
 public class ChestState implements Persistable {
-  private String state;
+  private ChestStateType state;
 
   public ChestState() {
-    this.state = "closed";
+    this.state = ChestStateType.CLOSED;
   }
 
-  public ChestState(String state) {
+  public ChestState(ChestStateType state) {
     this.state = state;
   }
 
-  public String getState() {
+  public ChestStateType getState() {
     return state;
   }
 
-  public void setState(String state) {
-    if (!state.equals(this.state)) {
+  public void setState(ChestStateType state) {
+    if (state != this.state) {
       this.state = state;
-      EventBusSingleton.getInstance().post(new ChestStateChangedEvent(state));
+      EventBusSingleton.getInstance().post(new ChestStateChangedEvent(state.name()));
     }
   }
 }
