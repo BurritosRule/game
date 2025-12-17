@@ -3,8 +3,6 @@ package com.github.game.state;
 import com.github.game.world.ChestStateChangedEvent;
 import com.github.game.world.EventBusSingleton;
 import com.github.game.world.LocationChangedEvent;
-import com.github.game.world.LocationName;
-import com.github.game.state.Persistable;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import com.google.common.eventbus.Subscribe;
@@ -48,21 +46,16 @@ public class GameState {
   // Example event handling: update state objects as needed
   @Subscribe
   public void handleLocationChange(LocationChangedEvent event) {
-    // If you have a LocationState object, update it here
-    Persistable locationState = stateObjects.get("playerLocation");
-    if (locationState instanceof LocationName) {
-      // Replace with new location
-      stateObjects.put("playerLocation", event.getNewLocationName());
-    }
+    // Event handler - can trigger auto-save if needed
+    // For now, just log the event
+    System.out.println("Location changed to: " + event.getNewLocationName());
   }
 
   @Subscribe
   public void handleChestStateChange(ChestStateChangedEvent event) {
-    // Generic event handler: can trigger persistence or notify listeners
-    // For example, auto-save game state when any chest state changes
-    // GameStatePersistence.saveToFile(this, "savegame.txt");
-    // Or simply log the event for now
+    // Event handler - can trigger auto-save if needed
     System.out.println("Chest state changed: " + event.getNewState());
-    // No direct manipulation of state objects here
+    // Example: Auto-save on chest state change
+    // GameStatePersistence.saveToFile(this, "savegame.json");
   }
 }

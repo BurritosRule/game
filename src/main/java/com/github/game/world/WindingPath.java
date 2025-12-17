@@ -8,13 +8,22 @@ import com.github.game.state.GameState;
 public class WindingPath implements Path {
 
   private final Chest chest;
+  private final ChestState chestState;
 
   public WindingPath() {
-    chest = new Chest();
-    // I removed getChestState from Chest for better encapsulation, however line 17
-    // no longer works. I am thinking that WindingPath should get state from the
-    // persistence layer?
-    GameState.getInstance().addStateObject("winding_path_chest_1", chest.getChestState());
+    // Create or load chest state from persistence
+    ChestState loadedState = (ChestState) GameState.getInstance().getStateObject("winding_path_chest_1");
+    if (loadedState == null) {
+      // First time - create new state
+      this.chestState = new ChestState();
+      GameState.getInstance().addStateObject("winding_path_chest_1", chestState);
+    } else {
+      // Use loaded state
+      this.chestState = loadedState;
+    }
+
+    // Create chest with the state
+    this.chest = new Chest(chestState);
   }
 
   @Override
