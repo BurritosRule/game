@@ -22,6 +22,4 @@ public class AutoSaveListener {
   public void onLocationChanged(LocationChangedEvent event) {
     GameStatePersistence.saveToFile(GameState.getInstance(), saveFile);
   }
-
-  // Add more @Subscribe methods for other events you want to autosave on
 }

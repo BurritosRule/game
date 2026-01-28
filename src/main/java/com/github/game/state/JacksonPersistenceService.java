@@ -2,23 +2,29 @@ package com.github.game.state;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
+import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Jackson-based implementation of PersistenceService.
- * Serializes game state to JSON format.
- */
 public class JacksonPersistenceService implements PersistenceService {
   private final ObjectMapper objectMapper;
 
   public JacksonPersistenceService() {
     this.objectMapper = new ObjectMapper();
+
+    // Whitelist only game state packages for security
+    PolymorphicTypeValidator ptv = BasicPolymorphicTypeValidator.builder()
+        .allowIfSubType("com.github.game.player")
+        .allowIfSubType("com.github.game.world")
+        .allowIfSubType("java.util.concurrent.ConcurrentHashMap")
+        .build();
+
     this.objectMapper.activateDefaultTyping(
-        objectMapper.getPolymorphicTypeValidator(),
+        ptv,
         ObjectMapper.DefaultTyping.NON_FINAL,
         com.fasterxml.jackson.annotation.JsonTypeInfo.As.PROPERTY);
   }
@@ -32,6 +38,7 @@ public class JacksonPersistenceService implements PersistenceService {
   @Override
   public Map<String, Persistable> load(String filepath) throws IOException {
     File file = new File(filepath);
+
     if (!file.exists()) {
       return new HashMap<>();
     }
