@@ -25,7 +25,7 @@ public class MenuFactory {
     }
 
     if (location instanceof Umbrus) {
-      return new UmbrusMenu(new UmbrusMenuActions(menuController, this, world));
+      return new UmbrusMenu(new UmbrusMenuActions(menuController, this, world, player));
     }
 
     if (location instanceof WindingPath) {

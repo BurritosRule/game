@@ -17,8 +17,10 @@ public class JacksonPersistenceService implements PersistenceService {
 
   public JacksonPersistenceService() {
     this.objectMapper = new ObjectMapper();
-    // Enable pretty printing for human-readable JSON
-    this.objectMapper.writerWithDefaultPrettyPrinter();
+    this.objectMapper.activateDefaultTyping(
+        objectMapper.getPolymorphicTypeValidator(),
+        ObjectMapper.DefaultTyping.NON_FINAL,
+        com.fasterxml.jackson.annotation.JsonTypeInfo.As.PROPERTY);
   }
 
   @Override

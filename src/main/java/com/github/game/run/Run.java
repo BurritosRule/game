@@ -27,8 +27,6 @@ import com.github.game.ui.UiBuilder;
 import com.github.game.world.Action;
 import com.github.game.world.Location;
 import com.github.game.world.LocationFactory;
-import com.github.game.world.LocationName;
-import com.github.game.world.Umbrus;
 import com.github.game.world.World;
 
 public class Run {
@@ -57,8 +55,8 @@ public class Run {
       GameState.getInstance().addStateObject("player", playerState);
     }
 
-    // Get the location object for the saved location
-    Location startLocation = getLocationFromName(playerState.getLocationName(), locationFactory);
+    // Get the location object for the saved location (use World to ensure caching)
+    Location startLocation = world.getLocation(playerState.getLocationName());
 
     // Create player with loaded/new state
     Player player = new PlayerImpl(playerState, startLocation);
@@ -91,20 +89,5 @@ public class Run {
       }
     }
 
-  }
-
-  private static Location getLocationFromName(LocationName locationName, LocationFactory locationFactory) {
-    switch (locationName) {
-      case UMBRUS:
-        return new Umbrus();
-      case TOWER:
-        // Tower is created separately - for now return Umbrus
-        // TODO: Handle Tower creation properly
-        return new Umbrus();
-      case WINDING_PATH:
-        return locationFactory.createLocation(LocationName.WINDING_PATH);
-      default:
-        return new Umbrus(); // default fallback
-    }
   }
 }

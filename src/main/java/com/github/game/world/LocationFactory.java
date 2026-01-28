@@ -8,6 +8,10 @@ public class LocationFactory {
       return new WindingPath();
     }
 
+    if (locationName == LocationName.UMBRUS) {
+      return new Umbrus();
+    }
+
     throw new IllegalArgumentException("Unrecognized location name: " + locationName);
 
   }
