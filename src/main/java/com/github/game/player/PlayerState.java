@@ -1,0 +1,106 @@
+package com.github.game.player;
+
+import com.github.game.state.Persistable;
+import com.github.game.world.EventBusSingleton;
+import com.github.game.world.LocationChangedEvent;
+import com.github.game.world.LocationName;
+
+public class PlayerState implements Persistable {
+  private String name;
+  private LocationName locationName;
+  private int hp;
+  private String weapon;
+  private String armor;
+  private int gold;
+  private int attack;
+  private int defense;
+
+  public PlayerState() {
+    this.name = "Hero";
+    this.locationName = LocationName.UMBRUS;
+    this.hp = 100;
+    this.weapon = "Sword";
+    this.armor = "Chainmail";
+    this.gold = 100;
+    this.attack = 10;
+    this.defense = 10;
+  }
+
+  public PlayerState(String name, LocationName locationName) {
+    this.name = name;
+    this.locationName = locationName;
+    this.hp = 100;
+    this.weapon = "Sword";
+    this.armor = "Chainmail";
+    this.gold = 100;
+    this.attack = 10;
+    this.defense = 10;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public LocationName getLocationName() {
+    return locationName;
+  }
+
+  public void setLocationName(LocationName locationName) {
+    if (locationName != this.locationName) {
+      this.locationName = locationName;
+      EventBusSingleton.getInstance().post(new LocationChangedEvent(locationName));
+    }
+  }
+
+  public int getHp() {
+    return hp;
+  }
+
+  public void setHp(int hp) {
+    this.hp = hp;
+  }
+
+  public String getWeapon() {
+    return weapon;
+  }
+
+  public void setWeapon(String weapon) {
+    this.weapon = weapon;
+  }
+
+  public String getArmor() {
+    return armor;
+  }
+
+  public void setArmor(String armor) {
+    this.armor = armor;
+  }
+
+  public int getGold() {
+    return gold;
+  }
+
+  public void setGold(int gold) {
+    this.gold = gold;
+  }
+
+  public int getAttack() {
+    return attack;
+  }
+
+  public void setAttack(int attack) {
+    this.attack = attack;
+  }
+
+  public int getDefense() {
+    return defense;
+  }
+
+  public void setDefense(int defense) {
+    this.defense = defense;
+  }
+}

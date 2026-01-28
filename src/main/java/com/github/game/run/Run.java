@@ -15,6 +15,7 @@ import com.github.game.menu.MenuController;
 import com.github.game.menu.MenuFactory;
 import com.github.game.player.Player;
 import com.github.game.player.PlayerImpl;
+import com.github.game.player.PlayerState;
 import com.github.game.state.AutoSaveListener;
 import com.github.game.state.GameState;
 import com.github.game.state.GameStatePersistence;
@@ -24,7 +25,9 @@ import com.github.game.ui.LocationDescriptionRenderer;
 import com.github.game.ui.MenuRenderer;
 import com.github.game.ui.UiBuilder;
 import com.github.game.world.Action;
+import com.github.game.world.Location;
 import com.github.game.world.LocationFactory;
+import com.github.game.world.LocationName;
 import com.github.game.world.Umbrus;
 import com.github.game.world.World;
 
@@ -38,19 +41,30 @@ public class Run {
     DefaultParser parser = ui.createParser();
     LineReader reader = ui.createReader(terminal, parser);
 
-    GameStatePersistence.loadFromFile(GameState.getInstance(), "savegame.txt", reader);
+    GameStatePersistence.loadFromFile(GameState.getInstance(), "savegame.txt");
     new AutoSaveListener("savegame.txt");
 
-    // TowerImpl castleTower = new TowerImpl("Castle Tower", 10);
-    Umbrus umbrus = new Umbrus();
-    Player player = new PlayerImpl("Hero", umbrus);
-
+    // Initialize world and location factory
     MenuController menuController = new MenuController();
     LocationFactory locationFactory = new LocationFactory();
     World world = new World(locationFactory);
 
+    // Load or create PlayerState
+    PlayerState playerState = (PlayerState) GameState.getInstance().getStateObject("player");
+    if (playerState == null) {
+      // No saved state, create new player with defaults
+      playerState = new PlayerState();
+      GameState.getInstance().addStateObject("player", playerState);
+    }
+
+    // Get the location object for the saved location
+    Location startLocation = getLocationFromName(playerState.getLocationName(), locationFactory);
+
+    // Create player with loaded/new state
+    Player player = new PlayerImpl(playerState, startLocation);
+
     MenuFactory menuFactory = new MenuFactory(menuController, player, world);
-    Menu menu = menuFactory.getMenu(umbrus);
+    Menu menu = menuFactory.getMenu(startLocation);
 
     menuController.addMenu(menu);
 
@@ -77,5 +91,20 @@ public class Run {
       }
     }
 
+  }
+
+  private static Location getLocationFromName(LocationName locationName, LocationFactory locationFactory) {
+    switch (locationName) {
+      case UMBRUS:
+        return new Umbrus();
+      case TOWER:
+        // Tower is created separately - for now return Umbrus
+        // TODO: Handle Tower creation properly
+        return new Umbrus();
+      case WINDING_PATH:
+        return locationFactory.createLocation(LocationName.WINDING_PATH);
+      default:
+        return new Umbrus(); // default fallback
+    }
   }
 }

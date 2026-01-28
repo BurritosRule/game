@@ -3,12 +3,10 @@ package com.github.game.ui;
 import org.jline.terminal.Terminal;
 
 import com.github.game.player.Player;
-import com.github.game.state.GameState;
 import com.github.game.world.Location;
-import com.github.game.world.LocationName;
 
 public class InfoBannerRenderer {
-  private LocationName location;
+  private String locationName;
   private int hp;
   private String weapon;
   private String armor;
@@ -24,8 +22,8 @@ public class InfoBannerRenderer {
 
   public void render(Player player) {
 
-    // location = player.getCurrentLocation();
-    location = GameState.getInstance().getPlayerLocation();
+    Location location = player.getCurrentLocation();
+    locationName = location.getName();
     hp = player.getHp();
     weapon = player.getWeapon();
     armor = player.getArmor();
@@ -33,15 +31,11 @@ public class InfoBannerRenderer {
 
     terminal.writer().println(separator);
 
-    // if (location.getSubLocation() != null) {
-    // terminal.writer().println("Location: " + location.getName() + " (" +
-    // location.getSubLocation() + ")");
-
-    // } else {
-    // terminal.writer().println("Location: " + location.getName());
-    // }
-
-    terminal.writer().println("Location: " + location.getDisplayName());
+    if (location.getSubLocation() != null) {
+      terminal.writer().println("Location: " + locationName + " (" + location.getSubLocation() + ")");
+    } else {
+      terminal.writer().println("Location: " + locationName);
+    }
 
     terminal.writer().println("HP: " + hp);
     terminal.writer().println("Weapon: " + weapon);

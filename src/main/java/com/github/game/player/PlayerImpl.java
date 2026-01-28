@@ -1,95 +1,100 @@
 package com.github.game.player;
 
 import com.github.game.world.Location;
+import com.github.game.world.LocationName;
 
 public class PlayerImpl implements Player {
 
-  private String name;
+  private final PlayerState playerState;
   private Location location;
-  private int hp;
-  // Weapons and armor won't be strings. This is for testing purposes.
-  private String weapon;
-  private String armor;
-  private int gold;
-  private int attack;
-  private int defense;
+
+  public PlayerImpl(PlayerState playerState, Location location) {
+    this.playerState = playerState;
+    this.location = location;
+  }
 
   public PlayerImpl(String name, Location location) {
-    this.name = name;
+    this.playerState = new PlayerState(name, getLocationNameFromLocation(location));
     this.location = location;
-    this.hp = 100;
-    this.weapon = "Sword";
-    this.armor = "Chainmail";
-    this.gold = 100;
-    this.attack = 10;
-    this.defense = 10;
+  }
 
+  private LocationName getLocationNameFromLocation(Location location) {
+    // Map location name string to LocationName enum
+    String name = location.getName().toUpperCase().replace(" ", "_");
+    try {
+      return LocationName.valueOf(name);
+    } catch (IllegalArgumentException e) {
+      return LocationName.UMBRUS; // default fallback
+    }
   }
 
   public void setCurrentLocation(Location location) {
     this.location = location;
-
+    playerState.setLocationName(getLocationNameFromLocation(location));
   }
 
   public Location getCurrentLocation() {
     return location;
-
   }
 
   public String getName() {
-    return name;
+    return playerState.getName();
   }
 
   public void setName(String name) {
-    this.name = name;
+    playerState.setName(name);
   }
 
   public int getHp() {
-    return hp;
+    return playerState.getHp();
   }
 
   public void setHp(int hp) {
-    this.hp = hp;
+    playerState.setHp(hp);
   }
 
   public String getWeapon() {
-    return weapon;
+    return playerState.getWeapon();
   }
 
   public void setWeapon(String weapon) {
-    this.weapon = weapon;
+    playerState.setWeapon(weapon);
   }
 
   public String getArmor() {
-    return armor;
+    return playerState.getArmor();
   }
 
   public void setArmor(String armor) {
-    this.armor = armor;
+    playerState.setArmor(armor);
   }
 
   public int getGold() {
-    return gold;
+    return playerState.getGold();
   }
 
   public void setGold(int gold) {
-    this.gold = gold;
+    playerState.setGold(gold);
   }
 
   public int getAttack() {
-    return attack;
+    return playerState.getAttack();
   }
 
   public void setAttack(int attack) {
-    this.attack = attack;
+    playerState.setAttack(attack);
   }
 
   public int getDefense() {
-    return defense;
+    return playerState.getDefense();
   }
 
   public void setDefense(int defense) {
-    this.defense = defense;
+    playerState.setDefense(defense);
+  }
+
+  public PlayerState getPlayerState() {
+    return playerState;
   }
 
 }

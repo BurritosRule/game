@@ -1,2 +1,15 @@
-playerLocation=WINDING_PATH
-chestState=closed
+{
+  "winding_path_chest_1" : {
+    "state" : "OPENED"
+  },
+  "player" : {
+    "name" : "Hero",
+    "locationName" : "UMBRUS",
+    "hp" : 100,
+    "weapon" : "Sword",
+    "armor" : "Chainmail",
+    "gold" : 100,
+    "attack" : 10,
+    "defense" : 10
+  }
+}
