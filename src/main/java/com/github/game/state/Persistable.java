@@ -2,7 +2,7 @@ package com.github.game.state;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
 public interface Persistable {
 
 }

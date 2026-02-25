@@ -1,11 +1,10 @@
 {
-  "@class" : "java.util.concurrent.ConcurrentHashMap",
   "winding_path_chest_1" : {
-    "@class" : "com.github.game.world.ChestState",
+    "@type" : "ChestState",
     "state" : "OPENED"
   },
   "player" : {
-    "@class" : "com.github.game.player.PlayerState",
+    "@type" : "PlayerState",
     "name" : "Hero",
     "locationName" : "WINDING_PATH",
     "hp" : 100,

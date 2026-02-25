@@ -1,7 +1,11 @@
 package com.github.game.world;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.google.auto.service.AutoService;
 import com.github.game.state.Persistable;
 
+@AutoService(Persistable.class)
+@JsonTypeName("ChestState")
 public class ChestState implements Persistable {
   private ChestStateType state;
 

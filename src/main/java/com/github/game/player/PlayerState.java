@@ -1,10 +1,14 @@
 package com.github.game.player;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.google.auto.service.AutoService;
 import com.github.game.state.Persistable;
 import com.github.game.world.EventBusSingleton;
 import com.github.game.world.LocationChangedEvent;
 import com.github.game.world.LocationName;
 
+@AutoService(Persistable.class)
+@JsonTypeName("PlayerState")
 public class PlayerState implements Persistable {
   private String name;
   private LocationName locationName;
