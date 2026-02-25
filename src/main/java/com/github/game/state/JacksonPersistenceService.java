@@ -15,7 +15,9 @@ public class JacksonPersistenceService implements PersistenceService {
   public JacksonPersistenceService() {
     this.objectMapper = new ObjectMapper();
     ServiceLoader.load(Persistable.class)
-        .forEach(p -> this.objectMapper.registerSubtypes(p.getClass()));
+        .stream()
+        .map(ServiceLoader.Provider::type)
+        .forEach(this.objectMapper::registerSubtypes);
   }
 
   @Override
