@@ -14,6 +14,8 @@ public class JacksonPersistenceService implements PersistenceService {
 
   public JacksonPersistenceService() {
     this.objectMapper = new ObjectMapper();
+    // More on registerSubtypes vs. @JsonSubTypes here:
+    // https://www.baeldung.com/java-jackson-polymorphic-deserialization
     ServiceLoader.load(Persistable.class)
         .stream()
         .map(ServiceLoader.Provider::type)
