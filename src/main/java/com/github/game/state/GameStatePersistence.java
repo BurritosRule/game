@@ -1,6 +1,7 @@
 package com.github.game.state;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 public class GameStatePersistence {
@@ -8,8 +9,9 @@ public class GameStatePersistence {
 
   public static void saveToFile(GameState gameState, String filepath) {
     try {
-      Map<String, Persistable> stateObjects = gameState.getAllStateObjects();
-      persistenceService.save(stateObjects, filepath);
+      Map<String, PersistableDTO> dtoObjects = new HashMap<>();
+      gameState.getAllStateObjects().forEach((key, value) -> dtoObjects.put(key, value.toDTO()));
+      persistenceService.save(dtoObjects, filepath);
     } catch (IOException e) {
       // Convert to a logger
       System.err.println("Error saving game state to '" + filepath + "': " + e.getMessage());
@@ -18,12 +20,11 @@ public class GameStatePersistence {
 
   public static void loadFromFile(GameState gameState, String filepath) {
     try {
-      Map<String, Persistable> loadedStates = persistenceService.load(filepath);
+      Map<String, PersistableDTO> loadedDTOs = persistenceService.load(filepath);
 
-      // Clear existing state and replace with loaded state
       Map<String, Persistable> currentStates = gameState.getAllStateObjects();
       currentStates.clear();
-      currentStates.putAll(loadedStates);
+      loadedDTOs.forEach((key, dto) -> currentStates.put(key, dto.toDomain()));
 
     } catch (IOException e) {
       // Convert to a logger

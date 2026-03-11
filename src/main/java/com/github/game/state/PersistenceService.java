@@ -7,7 +7,7 @@ import java.util.Map;
  * Interface for saving and loading game state.
  */
 public interface PersistenceService {
-  void save(Map<String, Persistable> stateObjects, String filepath) throws IOException;
+  void save(Map<String, PersistableDTO> dtoObjects, String filepath) throws IOException;
 
-  Map<String, Persistable> load(String filepath) throws IOException;
+  Map<String, PersistableDTO> load(String filepath) throws IOException;
 }

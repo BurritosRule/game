@@ -1,11 +1,8 @@
 package com.github.game.world;
 
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.google.auto.service.AutoService;
 import com.github.game.state.Persistable;
+import com.github.game.state.PersistableDTO;
 
-@AutoService(Persistable.class)
-@JsonTypeName("ChestState")
 public class ChestState implements Persistable {
   private ChestStateType state;
 
@@ -26,5 +23,10 @@ public class ChestState implements Persistable {
       this.state = state;
       EventBusSingleton.getInstance().post(new ChestStateChangedEvent(state.name()));
     }
+  }
+
+  @Override
+  public PersistableDTO toDTO() {
+    return new ChestStateDTO(this);
   }
 }

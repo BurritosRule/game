@@ -1,12 +1,14 @@
 package com.github.game.player;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.google.auto.service.AutoService;
 import com.github.game.state.Persistable;
 import com.github.game.state.PersistableDTO;
-import com.github.game.world.EventBusSingleton;
-import com.github.game.world.LocationChangedEvent;
 import com.github.game.world.LocationName;
 
-public class PlayerState implements Persistable {
+@AutoService(PersistableDTO.class)
+@JsonTypeName("PlayerState")
+public class PlayerStateDTO implements PersistableDTO {
   private String name;
   private LocationName locationName;
   private int hp;
@@ -16,27 +18,23 @@ public class PlayerState implements Persistable {
   private int attack;
   private int defense;
 
-  public PlayerState() {
-    this.name = "Hero";
-    this.locationName = LocationName.UMBRUS;
-    this.hp = 100;
-    this.weapon = "Sword";
-    this.armor = "Chainmail";
-    this.gold = 100;
-    this.attack = 10;
-    this.defense = 10;
+  public PlayerStateDTO() {
   }
 
-  PlayerState(String name, LocationName locationName, int hp, String weapon, String armor, int gold, int attack,
-      int defense) {
-    this.name = name;
-    this.locationName = locationName;
-    this.hp = hp;
-    this.weapon = weapon;
-    this.armor = armor;
-    this.gold = gold;
-    this.attack = attack;
-    this.defense = defense;
+  public PlayerStateDTO(PlayerState state) {
+    this.name = state.getName();
+    this.locationName = state.getLocationName();
+    this.hp = state.getHp();
+    this.weapon = state.getWeapon();
+    this.armor = state.getArmor();
+    this.gold = state.getGold();
+    this.attack = state.getAttack();
+    this.defense = state.getDefense();
+  }
+
+  @Override
+  public Persistable toDomain() {
+    return new PlayerState(name, locationName, hp, weapon, armor, gold, attack, defense);
   }
 
   public String getName() {
@@ -52,10 +50,7 @@ public class PlayerState implements Persistable {
   }
 
   public void setLocationName(LocationName locationName) {
-    if (locationName != this.locationName) {
-      this.locationName = locationName;
-      EventBusSingleton.getInstance().post(new LocationChangedEvent(locationName));
-    }
+    this.locationName = locationName;
   }
 
   public int getHp() {
@@ -104,10 +99,5 @@ public class PlayerState implements Persistable {
 
   public void setDefense(int defense) {
     this.defense = defense;
-  }
-
-  @Override
-  public PersistableDTO toDTO() {
-    return new PlayerStateDTO(this);
   }
 }

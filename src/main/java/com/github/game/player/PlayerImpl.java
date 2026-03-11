@@ -13,11 +13,6 @@ public class PlayerImpl implements Player {
     this.location = location;
   }
 
-  public PlayerImpl(String name, Location location) {
-    this.playerState = new PlayerState(name, getLocationNameFromLocation(location));
-    this.location = location;
-  }
-
   private LocationName getLocationNameFromLocation(Location location) {
     // Map location name string to LocationName enum
     String name = location.getName().toUpperCase().replace(" ", "_");
