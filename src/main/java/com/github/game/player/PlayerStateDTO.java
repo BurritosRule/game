@@ -2,7 +2,6 @@ package com.github.game.player;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.google.auto.service.AutoService;
-import com.github.game.state.Persistable;
 import com.github.game.state.PersistableDTO;
 import com.github.game.world.LocationName;
 
@@ -19,22 +18,6 @@ public class PlayerStateDTO implements PersistableDTO {
   private int defense;
 
   public PlayerStateDTO() {
-  }
-
-  public PlayerStateDTO(PlayerState state) {
-    this.name = state.getName();
-    this.locationName = state.getLocationName();
-    this.hp = state.getHp();
-    this.weapon = state.getWeapon();
-    this.armor = state.getArmor();
-    this.gold = state.getGold();
-    this.attack = state.getAttack();
-    this.defense = state.getDefense();
-  }
-
-  @Override
-  public Persistable toDomain() {
-    return new PlayerState(name, locationName, hp, weapon, armor, gold, attack, defense);
   }
 
   public String getName() {
