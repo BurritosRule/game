@@ -20,6 +20,22 @@ public class PlayerStateDTO implements PersistableDTO {
   public PlayerStateDTO() {
   }
 
+  public PlayerStateDTO(PlayerState state) {
+    this.name = state.getName();
+    this.locationName = state.getLocationName();
+    this.hp = state.getHp();
+    this.weapon = state.getWeapon();
+    this.armor = state.getArmor();
+    this.gold = state.getGold();
+    this.attack = state.getAttack();
+    this.defense = state.getDefense();
+  }
+
+  @Override
+  public PlayerState toDomain() {
+    return new PlayerState(name, locationName, hp, weapon, armor, gold, attack, defense);
+  }
+
   public String getName() {
     return name;
   }
