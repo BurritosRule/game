@@ -1,9 +1,9 @@
-package com.github.game.world;
+package com.github.game.state;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.google.auto.service.AutoService;
-import com.github.game.state.Persistable;
-import com.github.game.state.PersistableDTO;
+import com.github.game.world.ChestState;
+import com.github.game.world.ChestStateType;
 
 @AutoService(PersistableDTO.class)
 @JsonTypeName("ChestState")
@@ -13,6 +13,7 @@ public class ChestStateDTO implements PersistableDTO {
   public ChestStateDTO() {
   }
 
+  @MapsFrom(ChestState.class)
   public ChestStateDTO(ChestState state) {
     this.state = state.getState();
   }
