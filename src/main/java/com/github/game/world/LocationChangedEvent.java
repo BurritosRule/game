@@ -1,6 +1,6 @@
 package com.github.game.world;
 
-public class LocationChangedEvent {
+public class LocationChangedEvent implements DomainEvent {
   private final LocationName newLocationName;
 
   public LocationChangedEvent(LocationName newLocationName) {

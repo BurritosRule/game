@@ -1,11 +1,12 @@
 package com.github.game.player;
 
 import com.github.game.state.Persistable;
-import com.github.game.world.EventBusSingleton;
+import com.github.game.world.DomainEventPublisher;
 import com.github.game.world.LocationChangedEvent;
 import com.github.game.world.LocationName;
 
 public class PlayerState implements Persistable {
+  private DomainEventPublisher publisher = event -> {};
   private String name;
   private LocationName locationName;
   private int hp;
@@ -50,10 +51,14 @@ public class PlayerState implements Persistable {
     return locationName;
   }
 
+  public void setPublisher(DomainEventPublisher publisher) {
+    this.publisher = publisher;
+  }
+
   public void setLocationName(LocationName locationName) {
     if (locationName != this.locationName) {
       this.locationName = locationName;
-      EventBusSingleton.getInstance().post(new LocationChangedEvent(locationName));
+      publisher.publish(new LocationChangedEvent(locationName));
     }
   }
 
