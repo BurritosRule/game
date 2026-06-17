@@ -1,7 +1,6 @@
 package com.github.game.world;
 
 import com.github.game.state.Persistable;
-import com.github.game.state.PersistableDTO;
 
 public class ChestState implements Persistable {
   private ChestStateType state;
@@ -23,11 +22,6 @@ public class ChestState implements Persistable {
       this.state = state;
       EventBusSingleton.getInstance().post(new ChestStateChangedEvent(state.name()));
     }
-  }
-
-  @Override
-  public PersistableDTO toDTO() {
-    return new ChestStateDTO(this);
   }
 
 }

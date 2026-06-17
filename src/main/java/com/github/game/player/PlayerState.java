@@ -1,7 +1,6 @@
 package com.github.game.player;
 
 import com.github.game.state.Persistable;
-import com.github.game.state.PersistableDTO;
 import com.github.game.world.EventBusSingleton;
 import com.github.game.world.LocationChangedEvent;
 import com.github.game.world.LocationName;
@@ -104,11 +103,6 @@ public class PlayerState implements Persistable {
 
   public void setDefense(int defense) {
     this.defense = defense;
-  }
-
-  @Override
-  public PersistableDTO toDTO() {
-    return new PlayerStateDTO(this);
   }
 
 }
