@@ -6,12 +6,11 @@ import java.util.Map;
 
 public class GameStatePersistence {
   private static final PersistenceService persistenceService = new JacksonPersistenceService();
-  private static final PersistableMappingRegistry mappingRegistry = new PersistableMappingRegistry();
 
   public static void saveToFile(GameState gameState, String filepath) {
     try {
       Map<String, PersistableDTO> dtoObjects = new HashMap<>();
-      gameState.getAllStateObjects().forEach((key, value) -> dtoObjects.put(key, mappingRegistry.toDTO(value)));
+      gameState.getAllStateObjects().forEach((key, value) -> dtoObjects.put(key, value.toDTO()));
       persistenceService.save(dtoObjects, filepath);
     } catch (IOException e) {
       System.err.println("Error saving game state to '" + filepath + "': " + e.getMessage());

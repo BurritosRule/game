@@ -1,8 +1,8 @@
-package com.github.game.state;
+package com.github.game.player;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.google.auto.service.AutoService;
-import com.github.game.player.PlayerState;
+import com.github.game.state.PersistableDTO;
 import com.github.game.world.LocationName;
 
 @AutoService(PersistableDTO.class)
@@ -20,7 +20,6 @@ public class PlayerStateDTO implements PersistableDTO {
   public PlayerStateDTO() {
   }
 
-  @MapsFrom(PlayerState.class)
   public PlayerStateDTO(PlayerState state) {
     this.name = state.getName();
     this.locationName = state.getLocationName();
