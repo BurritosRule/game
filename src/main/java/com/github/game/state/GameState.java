@@ -37,9 +37,4 @@ public class GameState {
   public Map<String, Persistable> getAllStateObjects() {
     return stateObjects;
   }
-
-  public void replaceAll(Map<String, Persistable> newStates) {
-    stateObjects.clear();
-    stateObjects.putAll(newStates);
-  }
 }

@@ -16,20 +16,15 @@ import com.github.game.menu.MenuFactory;
 import com.github.game.player.Player;
 import com.github.game.player.PlayerImpl;
 import com.github.game.player.PlayerState;
-import com.google.common.eventbus.EventBus;
 import com.github.game.state.AutoSaveListener;
 import com.github.game.state.GameState;
 import com.github.game.state.GameStatePersistence;
-import com.github.game.state.GuavaEventBusPublisher;
-import com.github.game.state.JacksonPersistenceService;
-import com.github.game.state.PersistableMappingRegistry;
 import com.github.game.ui.ActionExecuter;
 import com.github.game.ui.InfoBannerRenderer;
 import com.github.game.ui.LocationDescriptionRenderer;
 import com.github.game.ui.MenuRenderer;
 import com.github.game.ui.UiBuilder;
 import com.github.game.world.Action;
-import com.github.game.world.DomainEventPublisher;
 import com.github.game.world.Location;
 import com.github.game.world.LocationFactory;
 import com.github.game.world.World;
@@ -44,28 +39,21 @@ public class Run {
     DefaultParser parser = ui.createParser();
     LineReader reader = ui.createReader(terminal, parser);
 
-    GameState gameState = GameState.getInstance();
-    GameStatePersistence persistence = new GameStatePersistence(
-        new JacksonPersistenceService(),
-        new PersistableMappingRegistry());
-    persistence.load(gameState, "savegame.txt");
-
-    EventBus eventBus = new EventBus();
-    DomainEventPublisher publisher = new GuavaEventBusPublisher(eventBus);
-    new AutoSaveListener(eventBus, persistence, gameState, "savegame.txt");
-
-    // Load or create PlayerState and wire up the publisher
-    PlayerState playerState = (PlayerState) gameState.getStateObject("player");
-    if (playerState == null) {
-      playerState = new PlayerState();
-      gameState.addStateObject("player", playerState);
-    }
-    playerState.setPublisher(publisher);
+    GameStatePersistence.loadFromFile(GameState.getInstance(), "savegame.txt");
+    new AutoSaveListener("savegame.txt");
 
     // Initialize world and location factory
     MenuController menuController = new MenuController();
-    LocationFactory locationFactory = new LocationFactory(gameState, publisher);
+    LocationFactory locationFactory = new LocationFactory();
     World world = new World(locationFactory);
+
+    // Load or create PlayerState
+    PlayerState playerState = (PlayerState) GameState.getInstance().getStateObject("player");
+    if (playerState == null) {
+      // No saved state, create new player with defaults
+      playerState = new PlayerState();
+      GameState.getInstance().addStateObject("player", playerState);
+    }
 
     // Get the location object for the saved location (use World to ensure caching)
     Location startLocation = world.getLocation(playerState.getLocationName());

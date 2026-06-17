@@ -1,6 +1,6 @@
 package com.github.game.world;
 
-public class ChestStateChangedEvent implements DomainEvent {
+public class ChestStateChangedEvent {
   private final String newState;
 
   public ChestStateChangedEvent(String newState) {
