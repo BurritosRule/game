@@ -3,11 +3,15 @@ package com.github.game.world;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.github.game.state.DomainEventPublisher;
+
 public class Chest implements Interactable {
   private final ChestState chestState;
+  private final DomainEventPublisher publisher;
 
-  public Chest(ChestState chestState) {
+  public Chest(ChestState chestState, DomainEventPublisher publisher) {
     this.chestState = chestState;
+    this.publisher = publisher;
   }
 
   @Override
@@ -23,9 +27,8 @@ public class Chest implements Interactable {
 
         @Override
         public void execute() {
-          if (chestState.getState() != ChestStateType.CLOSED) {
-            chestState.setState(ChestStateType.CLOSED);
-          }
+          chestState.setState(ChestStateType.CLOSED);
+          chestState.pullDomainEvents().forEach(publisher::publish);
         }
       });
     } else {
@@ -37,9 +40,8 @@ public class Chest implements Interactable {
 
         @Override
         public void execute() {
-          if (chestState.getState() != ChestStateType.OPENED) {
-            chestState.setState(ChestStateType.OPENED);
-          }
+          chestState.setState(ChestStateType.OPENED);
+          chestState.pullDomainEvents().forEach(publisher::publish);
         }
       });
     }

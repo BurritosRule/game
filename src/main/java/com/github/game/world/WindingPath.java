@@ -3,6 +3,7 @@ package com.github.game.world;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.github.game.state.DomainEventPublisher;
 import com.github.game.state.GameState;
 
 public class WindingPath implements Path {
@@ -10,20 +11,15 @@ public class WindingPath implements Path {
   private final Chest chest;
   private final ChestState chestState;
 
-  public WindingPath() {
-    // Create or load chest state from persistence
-    ChestState loadedState = (ChestState) GameState.getInstance().getStateObject("winding_path_chest_1");
-    if (loadedState == null) {
-      // First time - create new state
+  public WindingPath(DomainEventPublisher publisher) {
+    ChestState loaded = (ChestState) GameState.getInstance().getStateObject("winding_path_chest_1");
+    if (loaded == null) {
       this.chestState = new ChestState();
       GameState.getInstance().addStateObject("winding_path_chest_1", chestState);
     } else {
-      // Use loaded state
-      this.chestState = loadedState;
+      this.chestState = loaded;
     }
-
-    // Create chest with the state
-    this.chest = new Chest(chestState);
+    this.chest = new Chest(chestState, publisher);
   }
 
   @Override

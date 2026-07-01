@@ -1,8 +1,5 @@
 package com.github.game.state;
 
-import com.github.game.world.ChestStateChangedEvent;
-import com.github.game.world.LocationChangedEvent;
-import com.github.game.world.EventBusSingleton;
 import com.google.common.eventbus.Subscribe;
 
 public class AutoSaveListener {
@@ -10,16 +7,10 @@ public class AutoSaveListener {
 
   public AutoSaveListener(String saveFile) {
     this.saveFile = saveFile;
-    EventBusSingleton.getInstance().register(this);
   }
 
   @Subscribe
-  public void onChestStateChanged(ChestStateChangedEvent event) {
-    GameStatePersistence.saveToFile(GameState.getInstance(), saveFile);
-  }
-
-  @Subscribe
-  public void onLocationChanged(LocationChangedEvent event) {
+  public void onAnyEvent(Object event) {
     GameStatePersistence.saveToFile(GameState.getInstance(), saveFile);
   }
 }

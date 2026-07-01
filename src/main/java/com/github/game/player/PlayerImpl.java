@@ -1,16 +1,19 @@
 package com.github.game.player;
 
+import com.github.game.state.DomainEventPublisher;
 import com.github.game.world.Location;
 import com.github.game.world.LocationName;
 
 public class PlayerImpl implements Player {
 
   private final PlayerState playerState;
+  private final DomainEventPublisher publisher;
   private Location location;
 
-  public PlayerImpl(PlayerState playerState, Location location) {
+  public PlayerImpl(PlayerState playerState, Location location, DomainEventPublisher publisher) {
     this.playerState = playerState;
     this.location = location;
+    this.publisher = publisher;
   }
 
   private LocationName getLocationNameFromLocation(Location location) {
@@ -26,6 +29,7 @@ public class PlayerImpl implements Player {
   public void setCurrentLocation(Location location) {
     this.location = location;
     playerState.setLocationName(getLocationNameFromLocation(location));
+    playerState.pullDomainEvents().forEach(publisher::publish);
   }
 
   public Location getCurrentLocation() {

@@ -17,6 +17,7 @@ import com.github.game.player.Player;
 import com.github.game.player.PlayerImpl;
 import com.github.game.player.PlayerState;
 import com.github.game.state.AutoSaveListener;
+import com.github.game.state.EventBusPublisher;
 import com.github.game.state.GameState;
 import com.github.game.state.GameStatePersistence;
 import com.github.game.ui.ActionExecuter;
@@ -40,17 +41,19 @@ public class Run {
     LineReader reader = ui.createReader(terminal, parser);
 
     GameStatePersistence.loadFromFile(GameState.getInstance(), "savegame.txt");
-    new AutoSaveListener("savegame.txt");
+
+    // Create the publisher and wire the auto-save listener to it
+    EventBusPublisher publisher = new EventBusPublisher();
+    publisher.register(new AutoSaveListener("savegame.txt"));
 
     // Initialize world and location factory
     MenuController menuController = new MenuController();
-    LocationFactory locationFactory = new LocationFactory();
+    LocationFactory locationFactory = new LocationFactory(publisher);
     World world = new World(locationFactory);
 
     // Load or create PlayerState
     PlayerState playerState = (PlayerState) GameState.getInstance().getStateObject("player");
     if (playerState == null) {
-      // No saved state, create new player with defaults
       playerState = new PlayerState();
       GameState.getInstance().addStateObject("player", playerState);
     }
@@ -59,7 +62,7 @@ public class Run {
     Location startLocation = world.getLocation(playerState.getLocationName());
 
     // Create player with loaded/new state
-    Player player = new PlayerImpl(playerState, startLocation);
+    Player player = new PlayerImpl(playerState, startLocation, publisher);
 
     MenuFactory menuFactory = new MenuFactory(menuController, player, world);
     Menu menu = menuFactory.getMenu(startLocation);

@@ -1,9 +1,6 @@
 package com.github.game.menu;
 
 import com.github.game.world.Action;
-import com.github.game.world.EventBusSingleton;
-import com.github.game.world.LocationChangedEvent;
-import com.github.game.world.LocationName;
 
 public class WindingPathMenuActions implements Action {
   private final MenuController menuController;
@@ -27,6 +24,5 @@ public class WindingPathMenuActions implements Action {
     com.github.game.world.Tower tower = new com.github.game.world.TowerImpl("Castle Tower", 10);
     Menu towerMenu = new TowerMenu(tower, menuController, menuFactory);
     menuController.addMenu(towerMenu);
-    EventBusSingleton.getInstance().post(new LocationChangedEvent(LocationName.TOWER));
   }
 }

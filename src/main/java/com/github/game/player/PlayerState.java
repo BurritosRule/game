@@ -1,7 +1,9 @@
 package com.github.game.player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.github.game.state.Persistable;
-import com.github.game.world.EventBusSingleton;
 import com.github.game.world.LocationChangedEvent;
 import com.github.game.world.LocationName;
 
@@ -14,6 +16,7 @@ public class PlayerState implements Persistable {
   private int gold;
   private int attack;
   private int defense;
+  private final List<Object> domainEvents = new ArrayList<>();
 
   public PlayerState() {
     this.name = "Hero";
@@ -53,8 +56,14 @@ public class PlayerState implements Persistable {
   public void setLocationName(LocationName locationName) {
     if (locationName != this.locationName) {
       this.locationName = locationName;
-      EventBusSingleton.getInstance().post(new LocationChangedEvent(locationName));
+      domainEvents.add(new LocationChangedEvent(locationName));
     }
+  }
+
+  public List<Object> pullDomainEvents() {
+    List<Object> events = new ArrayList<>(domainEvents);
+    domainEvents.clear();
+    return events;
   }
 
   public int getHp() {
